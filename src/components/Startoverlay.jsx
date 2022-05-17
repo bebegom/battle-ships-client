@@ -1,12 +1,12 @@
 import React from 'react'
-import { io } from "socket.io-client";
 
 
-export default function Startoverlay() {
+export default function Startoverlay({ socket }) {
 
-	const handleSubmit = () => {
-		io.emit('user:connected')
-
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		console.log(`User with id '${socket.id}' Connected`)
+		socket.emit('user:connect', socket.id)
 	}
 
 	return (

@@ -8,11 +8,13 @@ import Startoverlay from './components/Startoverlay';
 // Styles
 import './App.css';
 
-const socket = socketio.connect('http://localhost:3000')
+const socket = socketio.connect('http://localhost:4000')
 
 function App() {
 	return (
     	<div id="App">
+
+			<Startoverlay socket={socket}/>
 			
 			<GameboardPage />
 			
