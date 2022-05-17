@@ -1,10 +1,32 @@
 .row {
 	display: grid;
-	grid-template-columns: 8vw 8vw 8vw 8vw 8vw 8vw 8vw 8vw 8vw 8vw;
-	/* grid-template-rows: 5px 5px 5px 5px 5px 5px 5px 5px 5px 5px; */
+	grid-template-columns: 6vw 6vw 6vw 6vw 6vw 6vw 6vw 6vw 6vw 6vw;
+	height: 50px;
 }
 
 .box {
-	background-color: aquamarine;
 	border: 1px black solid;
+}
+
+/* color of player's boxes on the board */
+#mySide .box {
+	background-color: rgb(166, 209, 236);
+}
+
+/* color of opponent's boxes on the board */
+#opponentSide .box {
+	background-color: rgb(236, 234, 233);
+}
+
+.scoreboard {
+	background-color: rgb(206, 230, 233);
+	padding: 2%;
+	width: 40vw;
+}
+
+/* give who ever's turn it is this className */
+.playersTurn {
+	background-color: rgb(67, 90, 104);
+	color: rgb(238, 238, 238);
+	width: 40%;
 }
