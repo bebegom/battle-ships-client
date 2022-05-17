@@ -1,11 +1,12 @@
 import React from 'react'
 
 
-// TODO: om det är spelares tur lys upp scoreboard kanske
+// TODO: om det är spelares tur lys upp scoreboard-heading kanske
 
 
 
 const GameboardPage = () => {
+    const myTurn = false
     return (
         <>
            <h1>Battleship</h1>
@@ -133,13 +134,19 @@ const GameboardPage = () => {
                         <div id='j10' className="box">j10</div>
                     </div>
                 </div>
-                <div className='scoreboard'>Amount of ships I have left: AMOUNT OF SHIPS</div>
+                <div className='scoreboard'>
+                    <h2 className={myTurn ? 'playersTurn' : ''}>You</h2> {/* if-statment- if it is my turn give this .playersTurn */}
+                    Amount of ships I have left: AMOUNT OF SHIPS
+                    </div>
             </div>
            {/********* / Gameboard ********/}
 
            {/********* opponent's board ********/}
             <div id='opponentSide'>
-                <div className='scoreboard'>Amount of ships opponent have left: AMOUNT OF SHIPS</div>
+                <div className='scoreboard'>
+                    <h2 className={myTurn ? '' : 'playersTurn'}>Your opponent</h2> {/* if-statment- if it is opponent's turn give this .playersTurn */}
+                    Amount of ships opponent have left: AMOUNT OF SHIPS
+                </div>
                 <div className="gameboard-wrapper">
                     <div className='row'>
                         <div className="box">a1</div>
