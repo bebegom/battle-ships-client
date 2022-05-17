@@ -11,6 +11,11 @@ import './App.css';
 const socket = socketio.connect('http://localhost:4000')
 
 function App() {
+	
+	socket.on('game:start', (activeUser) => {
+		console.log('active user:', activeUser)
+	})
+
 	return (
     	<div id="App">
 
