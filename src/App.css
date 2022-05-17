@@ -18,6 +18,10 @@
 	background-color: rgb(236, 234, 233);
 }
 
+.disabledBox {
+	background-color: black;
+}
+
 .scoreboard {
 	background-color: rgb(206, 230, 233);
 	padding: 2%;
