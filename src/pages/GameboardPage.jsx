@@ -1,13 +1,34 @@
 import React from 'react'
 import { useState } from 'react'
-import { io } from 'socket.io-client'
+import {getShipLocation} from '../helpers/GetShips'
 
 const GameboardPage = ({ socket }) => {
+<<<<<<< HEAD
 	const [myTurn, setMyTurn] = useState(false)
 	const [myShips, setMyShips] = useState(4)
 	const [opponentShips, setOpponentShips] = useState(4)
 	const [activeBox, setActiveBox] = useState(true)
+=======
+    const [myTurn, setMyTurn] = useState(false)
+    const [myAmountOfShips, setMyAmountOfShips] = useState(4);
+    const [opponentAmountOfShips, setOpponentAmountOfShips] = useState(4);
+>>>>>>> main
 
+    const createShips = (e) => {
+        e.target.classList.toggle('ship')
+        e.target.classList.toggle('box')
+    }
+    
+    const randomizeAShipLocation = (ship, ship2) => {
+
+         [ship, ship2] = getShipLocation()
+        document.getElementById(ship).classList.add('ship')
+        document.getElementById(ship).classList.remove('box')
+
+        document.getElementById(ship2).classList.add('ship')
+        document.getElementById(ship2).classList.remove('box')
+        console.log('ship', ship, ship2);
+    }
 
 	const handleClickedOnBox = (e) => {
 		// setActiveBox(false)
@@ -52,6 +73,7 @@ const GameboardPage = ({ socket }) => {
 
 	})
 
+<<<<<<< HEAD
 	// listen to if hit or miss
 	socket.on("response:hitormiss", (socketId, hit) => {
 		// hit or miss
@@ -60,11 +82,9 @@ const GameboardPage = ({ socket }) => {
 
 
 
+=======
+>>>>>>> main
 	return (
-
-		
-		
-
 		// Spelplan lol
 		<>
 		{/***   Testknappar för dev		***/}
@@ -77,8 +97,12 @@ const GameboardPage = ({ socket }) => {
            {/********* Gameboard  vertical - A-J     Horisont - 1-10 ********/}
            <div id='mySide'>
                 <div className="gameboard-wapper">
+                    <button onClick={()=> {
+                        randomizeAShipLocation('shipOne', 'shipOne2')
+                        randomizeAShipLocation('shipTwo', 'shipTwo2')
+                    }}>get a location</button>
                     <div className='row'>
-                        <div id='a1' className="box">a1</div>
+                        <div onClick={createShips} id='a1' className="box">a1</div>
                         <div id='a2' className="box">a2</div>
                         <div id='a3' className="box">a3</div>
                         <div id='a4' className="box">a4</div>
@@ -200,7 +224,7 @@ const GameboardPage = ({ socket }) => {
                 </div>
                 <div className='scoreboard'>
                     <h2 className={myTurn ? 'playersTurn' : ''}>You</h2> {/* if-statment- if it is my turn give this .playersTurn */}
-                    Amount of ships I have left: AMOUNT OF SHIPS
+                    Amount of ships I have left: {myAmountOfShips}
                     </div>
             </div>
            {/********* / Gameboard ********/}
@@ -209,7 +233,7 @@ const GameboardPage = ({ socket }) => {
             <div id='opponentSide'>
                 <div className='scoreboard'>
                     <h2 className={myTurn ? '' : 'playersTurn'}>Your opponent</h2> {/* if-statment- if it is opponent's turn give this .playersTurn */}
-                    Amount of ships opponent have left: AMOUNT OF SHIPS
+                    Amount of ships opponent have left: {opponentAmountOfShips}
                 </div>
                 <div className="gameboard-wrapper">
                     <div className='row'>
