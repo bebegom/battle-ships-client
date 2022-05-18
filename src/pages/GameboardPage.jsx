@@ -1,14 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
 
-
-// TODO: om det är spelares tur lys upp scoreboard-heading kanske
-
-
-
 const GameboardPage = () => {
     const [myTurn, setMyTurn] = useState(false)
+    const [myShips, setMyShips] = useState(4);
+    const [opponentShips, setOpponentShips] = useState(4);
     // const [activeBox, setActiveBox] = useState(true)
+
 
     const handleClickedOnBox = (e) => {
         // setActiveBox(false)
