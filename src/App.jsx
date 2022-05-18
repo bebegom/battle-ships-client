@@ -1,4 +1,5 @@
 // React & Socket
+import { useState } from 'react'
 import socketio from 'socket.io-client'
 
 // Components & pages
@@ -11,17 +12,24 @@ import './App.css';
 const socket = socketio.connect('http://localhost:4000')
 
 function App() {
+	const [overlay, setOverlay] = useState(true)
 	
-	socket.on('game:start', (activeUser) => {
-		console.log('active user:', activeUser)
+	socket.on('game:start', (userId, opponent) => {
+		console.log('active user:', userId)
+		console.log('opponent:', opponent)
+
+		setOverlay(false)
 	})
+
 
 	return (
     	<div id="App">
 
-			<Startoverlay socket={socket}/>
+			{overlay && 
+				<Startoverlay socket={socket}/> 
+			}
 			
-			<GameboardPage />
+			<GameboardPage socket={socket}/>
 			
 		</div>
 	);
