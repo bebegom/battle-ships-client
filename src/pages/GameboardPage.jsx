@@ -4,8 +4,8 @@ import { io } from 'socket.io-client'
 
 const GameboardPage = ({ socket }) => {
 	const [myTurn, setMyTurn] = useState(false)
-	const [myShips, setMyShips] = useState(4);
-	const [opponentShips, setOpponentShips] = useState(4);
+	const [myShips, setMyShips] = useState(4)
+	const [opponentShips, setOpponentShips] = useState(4)
 	const [activeBox, setActiveBox] = useState(true)
 
 
@@ -16,21 +16,47 @@ const GameboardPage = ({ socket }) => {
 		e.target.classList.add('disabledBox')
 		e.target.classList.remove('box')
 
+		// emit till servern och fråga om det är en träff
+		socket.emit('user:click', socket.id)
+
 		// emit till servern att det är nästa spelares tur
+
+
+
+		setMyTurn(false)
 	}
 
+
+	// Listen to check if hit or miss
+	socket.on('user:hitormiss', (socketId) => {
+		// check if hit or miss
+		let hit 
+
+
+		// emit respons
+		socket.emit('click:respons', socketId, hit)
+	})
+
+
+	// listen to if you start
 	socket.on("game:playerTurn", () => {
 		setMyTurn(true)
 		console.log("myTurn:", myTurn)
 
 	})
 
+	// listen to if other player starts
 	socket.on("game:playerWaiting", () => {
 		setMyTurn(false)
 		console.log("myTurn:", myTurn)
 
 	})
 
+	// listen to if hit or miss
+	socket.on("response:hitormiss", (socketId, hit) => {
+		// hit or miss
+		// next players turn?
+	})
 
 
 
