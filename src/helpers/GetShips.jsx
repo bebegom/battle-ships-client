@@ -1,5 +1,6 @@
-export const getShipLocation = () => {
-    const numberToLetter = {0:'a', 1: 'b', 2: 'c', 3:'d', 4:'e', 5:'f', 6:'g', 7:'h', 8:'i', 9:'j'}
+const numberToLetter = {0:'a', 1: 'b', 2: 'c', 3:'d', 4:'e', 5:'f', 6:'g', 7:'h', 8:'i', 9:'j'}
+
+export const getShipLocation = (size) => {
     let x = Math.floor(Math.random() * 10) + 1
     let y = Math.floor(Math.random() * 10)
     y = Object.values(numberToLetter[y])
@@ -15,13 +16,6 @@ export const getShipLocation = () => {
         x = x+1
         nextid = y+x
     }
-    // else if(y === 1 ) {
-    //     y = y+1
-    //     nextid = y+x
-    // } else if (y === 10) {
-    //     y = y-1
-    //     nextid = y+x
-    // }>>
 
     const ship = [id, nextid]
     return ship
