@@ -1,23 +1,52 @@
 import React from 'react'
 import { useState } from 'react'
+import { io } from 'socket.io-client'
 
-const GameboardPage = () => {
-    const [myTurn, setMyTurn] = useState(false)
-    const [myShips, setMyShips] = useState(4);
-    const [opponentShips, setOpponentShips] = useState(4);
-    // const [activeBox, setActiveBox] = useState(true)
+const GameboardPage = ({ socket }) => {
+	const [myTurn, setMyTurn] = useState(false)
+	// const [myShips, setMyShips] = useState(4);
+	// const [opponentShips, setOpponentShips] = useState(4);
+	// const [activeBox, setActiveBox] = useState(true)
 
 
-    const handleClickedOnBox = (e) => {
-        // setActiveBox(false)
-        // console.log('clicked on box. Box is active? ', activeBox)
-        // console.log('clicked on: ', e.target.id)
-        e.target.classList.add('disabledBox')
-        e.target.classList.remove('box')
-    }
+	const handleClickedOnBox = (e) => {
+		// setActiveBox(false)
+		// console.log('clicked on box. Box is active? ', activeBox)
+		// console.log('clicked on: ', e.target.id)
+		e.target.classList.add('disabledBox')
+		e.target.classList.remove('box')
 
-    return (
-        <>
+		// emit till servern att det är nästa spelares tur
+	}
+
+	socket.on("game:playerTurn", () => {
+		setMyTurn(true)
+		console.log("myTurn:", myTurn)
+
+	})
+
+	socket.on("game:playerWaiting", () => {
+		setMyTurn(false)
+		console.log("myTurn:", myTurn)
+
+	})
+
+
+
+
+	return (
+
+		
+		
+
+		// Spelplan lol
+		<>
+		{/***   Testknappar för dev		***/}
+		<button onClick={()=>{ setMyTurn(!myTurn) }} >turn toggle</button>
+		<button onClick={()=>{ socket.emit("reset:room")}} >reset room</button>
+		{/***	/Testknappar för dev	***/}
+
+
            <h1>Battleship</h1>
            {/********* Gameboard  vertical - A-J     Horisont - 1-10 ********/}
            <div id='mySide'>
@@ -158,130 +187,533 @@ const GameboardPage = () => {
                 </div>
                 <div className="gameboard-wrapper">
                     <div className='row'>
-                        <div onClick={handleClickedOnBox} className="box">a1</div>
-                        <div onClick={handleClickedOnBox} className="box">a2</div>
-                        <div onClick={handleClickedOnBox} className="box">a3</div>
-                        <div onClick={handleClickedOnBox} className="box">a4</div>
-                        <div onClick={handleClickedOnBox} className="box">a5</div>
-                        <div onClick={handleClickedOnBox} className="box">a6</div>
-                        <div onClick={handleClickedOnBox} className="box">a7</div>
-                        <div onClick={handleClickedOnBox} className="box">a8</div>
-                        <div onClick={handleClickedOnBox} className="box">a9</div>
-                        <div onClick={handleClickedOnBox} className="box">a10</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">a1</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">a2</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">a3</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">a4</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">a5</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">a6</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">a7</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">a8</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">a9</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">a10</div>
                     </div>
                     <div className='row'>
-                        <div onClick={handleClickedOnBox} className="box">b1</div>
-                        <div onClick={handleClickedOnBox} className="box">b2</div>
-                        <div onClick={handleClickedOnBox} className="box">b3</div>
-                        <div onClick={handleClickedOnBox} className="box">b4</div>
-                        <div onClick={handleClickedOnBox} className="box">b5</div>
-                        <div onClick={handleClickedOnBox} className="box">b6</div>
-                        <div onClick={handleClickedOnBox} className="box">b7</div>
-                        <div onClick={handleClickedOnBox} className="box">b8</div>
-                        <div onClick={handleClickedOnBox} className="box">b9</div>
-                        <div onClick={handleClickedOnBox} className="box">b10</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">b1</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">b2</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">b3</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">b4</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">b5</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">b6</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">b7</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">b8</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">b9</div>
+                        <div 
+							onClick={() => {
+								if (myTurn) {
+									handleClickedOnBox()
+								}
+							}} 
+							className="box"
+						>b10</div>
                     </div>
                     <div className='row'>
-                        <div onClick={handleClickedOnBox} className="box">c1</div>
-                        <div onClick={handleClickedOnBox} className="box">c2</div>
-                        <div onClick={handleClickedOnBox} className="box">c3</div>
-                        <div onClick={handleClickedOnBox} className="box">c4</div>
-                        <div onClick={handleClickedOnBox} className="box">c5</div>
-                        <div onClick={handleClickedOnBox} className="box">c6</div>
-                        <div onClick={handleClickedOnBox} className="box">c7</div>
-                        <div onClick={handleClickedOnBox} className="box">c8</div>
-                        <div onClick={handleClickedOnBox} className="box">c9</div>
-                        <div onClick={handleClickedOnBox} className="box">c10</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">c1</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">c2</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">c3</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">c4</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">c5</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">c6</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">c7</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">c8</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">c9</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">c10</div>
                     </div>
                     <div className='row'>
-                        <div onClick={handleClickedOnBox} className="box">d1</div>
-                        <div onClick={handleClickedOnBox} className="box">d2</div>
-                        <div onClick={handleClickedOnBox} className="box">d3</div>
-                        <div onClick={handleClickedOnBox} className="box">d4</div>
-                        <div onClick={handleClickedOnBox} className="box">d5</div>
-                        <div onClick={handleClickedOnBox} className="box">d6</div>
-                        <div onClick={handleClickedOnBox} className="box">d7</div>
-                        <div onClick={handleClickedOnBox} className="box">d8</div>
-                        <div onClick={handleClickedOnBox} className="box">d9</div>
-                        <div onClick={handleClickedOnBox} className="box">d10</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">d1</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">d2</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">d3</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">d4</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">d5</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">d6</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">d7</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">d8</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">d9</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">d10</div>
                     </div>
                     <div className='row'>
-                        <div onClick={handleClickedOnBox} className="box">e1</div>
-                        <div onClick={handleClickedOnBox} className="box">e2</div>
-                        <div onClick={handleClickedOnBox} className="box">e3</div>
-                        <div onClick={handleClickedOnBox} className="box">e4</div>
-                        <div onClick={handleClickedOnBox} className="box">e5</div>
-                        <div onClick={handleClickedOnBox} className="box">e6</div>
-                        <div onClick={handleClickedOnBox} className="box">e7</div>
-                        <div onClick={handleClickedOnBox} className="box">e8</div>
-                        <div onClick={handleClickedOnBox} className="box">e9</div>
-                        <div onClick={handleClickedOnBox} className="box">e10</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">e1</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">e2</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">e3</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">e4</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">e5</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">e6</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">e7</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">e8</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">e9</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">e10</div>
                     </div>
                     <div className='row'>
-                        <div onClick={handleClickedOnBox} className="box">f1</div>
-                        <div onClick={handleClickedOnBox} className="box">f2</div>
-                        <div onClick={handleClickedOnBox} className="box">f3</div>
-                        <div onClick={handleClickedOnBox} className="box">f4</div>
-                        <div onClick={handleClickedOnBox} className="box">f5</div>
-                        <div onClick={handleClickedOnBox} className="box">f6</div>
-                        <div onClick={handleClickedOnBox} className="box">f7</div>
-                        <div onClick={handleClickedOnBox} className="box">f8</div>
-                        <div onClick={handleClickedOnBox} className="box">f9</div>
-                        <div onClick={handleClickedOnBox} className="box">f10</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">f1</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">f2</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">f3</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">f4</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">f5</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">f6</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">f7</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">f8</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">f9</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">f10</div>
                     </div>
                     <div className='row'>
-                        <div onClick={handleClickedOnBox} className="box">g1</div>
-                        <div onClick={handleClickedOnBox} className="box">g2</div>
-                        <div onClick={handleClickedOnBox} className="box">g3</div>
-                        <div onClick={handleClickedOnBox} className="box">g4</div>
-                        <div onClick={handleClickedOnBox} className="box">g5</div>
-                        <div onClick={handleClickedOnBox} className="box">g6</div>
-                        <div onClick={handleClickedOnBox} className="box">g7</div>
-                        <div onClick={handleClickedOnBox} className="box">g8</div>
-                        <div onClick={handleClickedOnBox} className="box">g9</div>
-                        <div onClick={handleClickedOnBox} className="box">g10</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">g1</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">g2</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">g3</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">g4</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">g5</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">g6</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">g7</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">g8</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">g9</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">g10</div>
                     </div>
                     <div className='row'>
-                        <div onClick={handleClickedOnBox} className="box">h1</div>
-                        <div onClick={handleClickedOnBox} className="box">h2</div>
-                        <div onClick={handleClickedOnBox} className="box">h3</div>
-                        <div onClick={handleClickedOnBox} className="box">h4</div>
-                        <div onClick={handleClickedOnBox} className="box">h5</div>
-                        <div onClick={handleClickedOnBox} className="box">h6</div>
-                        <div onClick={handleClickedOnBox} className="box">h7</div>
-                        <div onClick={handleClickedOnBox} className="box">h8</div>
-                        <div onClick={handleClickedOnBox} className="box">h9</div>
-                        <div onClick={handleClickedOnBox} className="box">h10</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">h1</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">h2</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">h3</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">h4</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">h5</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">h6</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">h7</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">h8</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">h9</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">h10</div>
                     </div>
                     <div className='row'>
-                        <div onClick={handleClickedOnBox} className="box">i1</div>
-                        <div onClick={handleClickedOnBox} className="box">i2</div>
-                        <div onClick={handleClickedOnBox} className="box">i3</div>
-                        <div onClick={handleClickedOnBox} className="box">i4</div>
-                        <div onClick={handleClickedOnBox} className="box">i5</div>
-                        <div onClick={handleClickedOnBox} className="box">i6</div>
-                        <div onClick={handleClickedOnBox} className="box">i7</div>
-                        <div onClick={handleClickedOnBox} className="box">i8</div>
-                        <div onClick={handleClickedOnBox} className="box">i9</div>
-                        <div onClick={handleClickedOnBox} className="box">i10</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">i1</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">i2</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">i3</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">i4</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">i5</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">i6</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">i7</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">i8</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">i9</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">i10</div>
                     </div>
                     <div className='row'>
-                        <div onClick={handleClickedOnBox} className="box">j1</div>
-                        <div onClick={handleClickedOnBox} className="box">j2</div>
-                        <div onClick={handleClickedOnBox} className="box">j3</div>
-                        <div onClick={handleClickedOnBox} className="box">j4</div>
-                        <div onClick={handleClickedOnBox} className="box">j5</div>
-                        <div onClick={handleClickedOnBox} className="box">j6</div>
-                        <div onClick={handleClickedOnBox} className="box">j7</div>
-                        <div onClick={handleClickedOnBox} className="box">j8</div>
-                        <div onClick={handleClickedOnBox} className="box">j9</div>
-                        <div onClick={handleClickedOnBox} className="box">j10</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">j1</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">j2</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">j3</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">j4</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">j5</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">j6</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">j7</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">j8</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">j9</div>
+                        <div onClick={(e) => {
+							if (myTurn) {
+								handleClickedOnBox(e)
+							}
+						}} className="box">j10</div>
                     </div>
                 </div>
            </div>
            {/********* / opponent's board ********/}
-        </>
-    )
+		</>
+	)
 }
 
 export default GameboardPage
