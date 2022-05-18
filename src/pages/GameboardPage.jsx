@@ -4,9 +4,9 @@ import { io } from 'socket.io-client'
 
 const GameboardPage = ({ socket }) => {
 	const [myTurn, setMyTurn] = useState(false)
-	// const [myShips, setMyShips] = useState(4);
-	// const [opponentShips, setOpponentShips] = useState(4);
-	// const [activeBox, setActiveBox] = useState(true)
+	const [myShips, setMyShips] = useState(4);
+	const [opponentShips, setOpponentShips] = useState(4);
+	const [activeBox, setActiveBox] = useState(true)
 
 
 	const handleClickedOnBox = (e) => {
