@@ -3,16 +3,9 @@ import { useState } from 'react'
 import {getShipLocation} from '../helpers/GetShips'
 
 const GameboardPage = ({ socket }) => {
-<<<<<<< HEAD
-	const [myTurn, setMyTurn] = useState(false)
-	const [myShips, setMyShips] = useState(4)
-	const [opponentShips, setOpponentShips] = useState(4)
-	const [activeBox, setActiveBox] = useState(true)
-=======
     const [myTurn, setMyTurn] = useState(false)
     const [myAmountOfShips, setMyAmountOfShips] = useState(4);
     const [opponentAmountOfShips, setOpponentAmountOfShips] = useState(4);
->>>>>>> main
 
     const createShips = (e) => {
         e.target.classList.toggle('ship')
@@ -73,7 +66,6 @@ const GameboardPage = ({ socket }) => {
 
 	})
 
-<<<<<<< HEAD
 	// listen to if hit or miss
 	socket.on("response:hitormiss", (socketId, hit) => {
 		// hit or miss
@@ -82,8 +74,6 @@ const GameboardPage = ({ socket }) => {
 
 
 
-=======
->>>>>>> main
 	return (
 		// Spelplan lol
 		<>
