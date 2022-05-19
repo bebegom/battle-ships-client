@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import {getShipLocation} from '../helpers/GetShips'
+import {getSmallShipLocation, getMediumShipLocation, getLargeShipLocation} from '../helpers/GetShips'
 
 const GameboardPage = ({ socket }) => {
     const [myTurn, setMyTurn] = useState(false)
@@ -12,9 +12,9 @@ const GameboardPage = ({ socket }) => {
         e.target.classList.toggle('box')
     }
     
-    const randomizeAShipLocation = (ship, ship2) => {
+    const randomizeASmallShipLocation = (ship, ship2) => {
 
-         [ship, ship2] = getShipLocation()
+         [ship, ship2] = getSmallShipLocation()
         document.getElementById(ship).classList.add('ship')
         document.getElementById(ship).classList.remove('box')
 
@@ -22,6 +22,37 @@ const GameboardPage = ({ socket }) => {
         document.getElementById(ship2).classList.remove('box')
         console.log('ship', ship, ship2);
     }
+
+	const randomizeAMediumShipLocation = (ship, ship2, ship3) => {
+
+		[ship, ship2, ship3] = getMediumShipLocation()
+	   document.getElementById(ship).classList.add('ship')
+	   document.getElementById(ship).classList.remove('box')
+
+	   document.getElementById(ship2).classList.add('ship')
+	   document.getElementById(ship2).classList.remove('box')
+
+	   document.getElementById(ship3).classList.add('ship')
+	   document.getElementById(ship3).classList.remove('box')
+	   console.log('ship', ship, ship2, ship3);
+   }
+
+   const randomizeALargeShipLocation = (ship, ship2, ship3, ship4) => {
+
+	[ship, ship2, ship3, ship4] = getLargeShipLocation()
+   document.getElementById(ship).classList.add('ship')
+   document.getElementById(ship).classList.remove('box')
+
+   document.getElementById(ship2).classList.add('ship')
+   document.getElementById(ship2).classList.remove('box')
+
+   document.getElementById(ship3).classList.add('ship')
+   document.getElementById(ship3).classList.remove('box')
+
+   document.getElementById(ship4).classList.add('ship')
+   document.getElementById(ship4).classList.remove('box')
+   console.log('ship', ship, ship2, ship3, ship4);
+}
 
 	const handleClickedOnBox = (e) => {
 		// setActiveBox(false)
@@ -88,8 +119,10 @@ const GameboardPage = ({ socket }) => {
            <div id='mySide'>
                 <div className="gameboard-wapper">
                     <button onClick={()=> {
-                        randomizeAShipLocation('shipOne', 'shipOne2')
-                        randomizeAShipLocation('shipTwo', 'shipTwo2')
+                        randomizeASmallShipLocation('shipOne', 'shipOne2')
+                        randomizeASmallShipLocation('shipTwo', 'shipTwo2')
+						randomizeAMediumShipLocation('shipThree','shipThree2','shipThree3')
+						randomizeALargeShipLocation('shipFour','shipFour2','shipFour3','shipFour4')
                     }}>get a location</button>
                     <div className='row'>
                         <div onClick={createShips} id='a1' className="box">a1</div>
