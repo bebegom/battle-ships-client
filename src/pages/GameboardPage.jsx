@@ -7,22 +7,12 @@ const GameboardPage = ({ socket }) => {
     const [myAmountOfShips, setMyAmountOfShips] = useState(4);
     const [opponentAmountOfShips, setOpponentAmountOfShips] = useState(4);
 
-    // const createShips = (e) => {
-    //     e.target.classList.toggle('ship')
-    //     e.target.classList.toggle('box')
-    // }
-
 	// get all ships
 	const randomizeFourShips = () => {
 		// get a random position for Destroyer (small) 
 		const randomizeDestroyerLocation = (ship, ship2) => {
 
 			[ship, ship2] = getDestroyerLocation()
-	
-			// if(document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship')) {
-			// 	[ship, ship2, ] = getMediumShipLocation()
-			// 	console.log('the if-statment ran for small ships')
-			// }
 	
 			for (let i = 0; document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship'); i++) {
 				[ship, ship2] = getDestroyerLocation()
@@ -42,11 +32,6 @@ const GameboardPage = ({ socket }) => {
 	
 			[ship, ship2] = getSubmarineLocation()
 	
-			// if(document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship')) {
-			// 	[ship, ship2, ] = getMediumShipLocation()
-			// 	console.log('the if-statment ran for small ships')
-			// }
-	
 			for (let i = 0; document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship'); i++) {
 				[ship, ship2] = getSubmarineLocation()
 				console.log('the if-statment ran for small ship, i: ', i)
@@ -64,11 +49,6 @@ const GameboardPage = ({ socket }) => {
 		const randomizeCruiserLocation = (ship, ship2, ship3) => {
 	
 			[ship, ship2, ship3] = getCruiserLocation()
-	
-			// if(document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship') || document.getElementById(ship3).classList.contains('ship')) {
-			// 	[ship, ship2, ship3] = getMediumShipLocation()
-			// 	console.log('the if-statment ran for medium ship')
-			// }
 	
 			for (let i = 0; document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship') || document.getElementById(ship3).classList.contains('ship'); i++) {
 				[ship, ship2, ship3] = getCruiserLocation()
