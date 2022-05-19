@@ -92,9 +92,6 @@ const GameboardPage = ({ socket }) => {
 	}
 
 	const handleClickedOnBox = (e) => {
-		// setActiveBox(false)
-		// console.log('clicked on box. Box is active? ', activeBox)
-		// console.log('clicked on: ', e.target.id)
 		e.target.classList.add('disabledBox')
 		e.target.classList.remove('box')
 
