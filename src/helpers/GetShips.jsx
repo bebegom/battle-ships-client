@@ -1,6 +1,6 @@
 const numberToLetter = {0:'a', 1: 'b', 2: 'c', 3:'d', 4:'e', 5:'f', 6:'g', 7:'h', 8:'i', 9:'j'}
 
-export const getSmallShipLocation = () => {
+export const getDestroyerLocation = () => {
     let x = Math.floor(Math.random() * 10) + 1
     let y = Math.floor(Math.random() * 10)
     y = Object.values(numberToLetter[y])
@@ -21,7 +21,28 @@ export const getSmallShipLocation = () => {
     return ship
 }
 
-export const getMediumShipLocation = () => {
+export const getSubmarineLocation = () => {
+    let x = Math.floor(Math.random() * 10) + 1
+    let y = Math.floor(Math.random() * 10)
+    y = Object.values(numberToLetter[y])
+    const id = y+x
+    let nextId;
+    if(x === 1 ) {
+        x = x+1
+        nextId = y+x
+    } else if (x === 10) {
+        x = x-1
+        nextId = y+x
+    } else if (x > 1 && x <10) {
+        x = x+1
+        nextId = y+x
+    }
+
+    const ship = [id, nextId]
+    return ship
+}
+
+export const getCruiserLocation = () => {
     let x = Math.floor(Math.random() * 10) + 1
     let y = Math.floor(Math.random() * 10)
     y = Object.values(numberToLetter[y])
@@ -49,7 +70,7 @@ export const getMediumShipLocation = () => {
     return ship
 }
 
-export const getLargeShipLocation = () => {
+export const getBattleshipLocation = () => {
     let x = Math.floor(Math.random() * 10) + 1
     let y = Math.floor(Math.random() * 10)
     y = Object.values(numberToLetter[y])

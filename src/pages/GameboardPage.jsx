@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import {getSmallShipLocation, getMediumShipLocation, getLargeShipLocation} from '../helpers/GetShips'
+import {getDestroyerLocation, getSubmarineLocation, getCruiserLocation, getBattleshipLocation} from '../helpers/GetShips'
 
 const GameboardPage = ({ socket }) => {
     const [myTurn, setMyTurn] = useState(false)
@@ -12,9 +12,21 @@ const GameboardPage = ({ socket }) => {
         e.target.classList.toggle('box')
     }
     
-    const randomizeASmallShipLocation = (ship, ship2) => {
+   // get a random position for Destroyer (small) 
+    const randomizeDestroyerLocation = (ship, ship2) => {
 
-         [ship, ship2] = getSmallShipLocation()
+		[ship, ship2] = getDestroyerLocation()
+
+		// if(document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship')) {
+		// 	[ship, ship2, ] = getMediumShipLocation()
+		// 	console.log('the if-statment ran for small ships')
+		// }
+
+		for (let i = 0; document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship'); i++) {
+			[ship, ship2] = getDestroyerLocation()
+			console.log('the if-statment ran for small ship, i: ', i)
+		}
+	
         document.getElementById(ship).classList.add('ship')
         document.getElementById(ship).classList.remove('box')
 
@@ -23,9 +35,44 @@ const GameboardPage = ({ socket }) => {
         console.log('ship', ship, ship2);
     }
 
-	const randomizeAMediumShipLocation = (ship, ship2, ship3) => {
+	// get a random position for Submarine (small) 
+    const randomizeSubmarineLocation = (ship, ship2) => {
 
-		[ship, ship2, ship3] = getMediumShipLocation()
+		[ship, ship2] = getSubmarineLocation()
+
+		// if(document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship')) {
+		// 	[ship, ship2, ] = getMediumShipLocation()
+		// 	console.log('the if-statment ran for small ships')
+		// }
+
+		for (let i = 0; document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship'); i++) {
+			[ship, ship2] = getSubmarineLocation()
+			console.log('the if-statment ran for small ship, i: ', i)
+		}
+	
+        document.getElementById(ship).classList.add('ship')
+        document.getElementById(ship).classList.remove('box')
+
+        document.getElementById(ship2).classList.add('ship')
+        document.getElementById(ship2).classList.remove('box')
+        console.log('ship', ship, ship2);
+    }
+
+   // get a random position for Cruiser (medium) 
+	const randomizeCruiserLocation = (ship, ship2, ship3) => {
+
+		[ship, ship2, ship3] = getCruiserLocation()
+
+		// if(document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship') || document.getElementById(ship3).classList.contains('ship')) {
+		// 	[ship, ship2, ship3] = getMediumShipLocation()
+		// 	console.log('the if-statment ran for medium ship')
+		// }
+
+		for (let i = 0; document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship') || document.getElementById(ship3).classList.contains('ship'); i++) {
+			[ship, ship2, ship3] = getCruiserLocation()
+			console.log('the if-statment ran for medium ship, i: ', i)
+		}
+
 	   document.getElementById(ship).classList.add('ship')
 	   document.getElementById(ship).classList.remove('box')
 
@@ -35,11 +82,13 @@ const GameboardPage = ({ socket }) => {
 	   document.getElementById(ship3).classList.add('ship')
 	   document.getElementById(ship3).classList.remove('box')
 	   console.log('ship', ship, ship2, ship3);
+
    }
 
-   const randomizeALargeShipLocation = (ship, ship2, ship3, ship4) => {
+   // get a random position for Battleship (large) 
+   const randomizeBattlehipLocation = (ship, ship2, ship3, ship4) => {
 
-	[ship, ship2, ship3, ship4] = getLargeShipLocation()
+	[ship, ship2, ship3, ship4] = getBattleshipLocation()
    document.getElementById(ship).classList.add('ship')
    document.getElementById(ship).classList.remove('box')
 
@@ -119,10 +168,10 @@ const GameboardPage = ({ socket }) => {
            <div id='mySide'>
                 <div className="gameboard-wapper">
                     <button onClick={()=> {
-                        randomizeASmallShipLocation('shipOne', 'shipOne2')
-                        randomizeASmallShipLocation('shipTwo', 'shipTwo2')
-						randomizeAMediumShipLocation('shipThree','shipThree2','shipThree3')
-						randomizeALargeShipLocation('shipFour','shipFour2','shipFour3','shipFour4')
+						randomizeBattlehipLocation('shipFour','shipFour2','shipFour3','shipFour4')
+						randomizeCruiserLocation('shipThree','shipThree2','shipThree3')
+                        randomizeSubmarineLocation('shipOne', 'shipOne2')
+                        randomizeDestroyerLocation('shipTwo', 'shipTwo2')
                     }}>get a location</button>
                     <div className='row'>
                         <div onClick={createShips} id='a1' className="box">a1</div>
