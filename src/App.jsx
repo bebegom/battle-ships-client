@@ -15,8 +15,6 @@ function App() {
 	const [overlay, setOverlay] = useState(true)
 	
 	socket.on('game:start', (userId, opponent) => {
-		console.log('active user:', userId)
-		console.log('opponent:', opponent)
 
 		setOverlay(false)
 	})
