@@ -1,18 +1,10 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {getShipLocation} from '../helpers/GetShips'
 
 const GameboardPage = ({ socket }) => {
-<<<<<<< HEAD
-	const [myTurn, setMyTurn] = useState(false)
-	const [myShips, setMyShips] = useState(4)
-	const [opponentShips, setOpponentShips] = useState(4)
-	const [activeBox, setActiveBox] = useState(true)
-=======
     const [myTurn, setMyTurn] = useState(false)
     const [myAmountOfShips, setMyAmountOfShips] = useState(4);
     const [opponentAmountOfShips, setOpponentAmountOfShips] = useState(4);
->>>>>>> main
 
     const createShips = (e) => {
         e.target.classList.toggle('ship')
@@ -31,59 +23,57 @@ const GameboardPage = ({ socket }) => {
     }
 
 	const handleClickedOnBox = (e) => {
-		// setActiveBox(false)
-		// console.log('clicked on box. Box is active? ', activeBox)
-		// console.log('clicked on: ', e.target.id)
 		e.target.classList.add('disabledBox')
 		e.target.classList.remove('box')
 
 		// emit till servern och fråga om det är en träff
 		socket.emit('user:click', socket.id)
-
-		// emit till servern att det är nästa spelares tur
-
-
+		console.log('Användare klickade på en ruta')
 
 		setMyTurn(false)
 	}
 
 
-	// Listen to check if hit or miss
-	socket.on('user:hitormiss', (socketId) => {
-		// check if hit or miss
-		let hit 
+	useEffect(() => {
+		// listen to if you start
+		socket.on("game:playerTurn", () => {
+			setMyTurn(true)
+			// console.log("myTurn:", myTurn)
+		} )
+
+		// listen to if other player starts
+		socket.on("game:playerWaiting", () => {
+			setMyTurn(false)
+			// console.log("myTurn:", myTurn)
+		})
+
+		// listen to handle hit check
+		socket.on('user:hitormiss', (socketId) => {
+			// check if hit or miss
+			let hit 
+		
+			// console.log("Kolla om hit or miss")
+			// console.log("variabeln hit:", hit)
+			// console.log("socketId:", socketId)
+		
+			// emit respons
+			socket.emit('click:response', socketId, hit)
+		})
+
+		// listen to hit check respons
+		socket.on("response:hitormiss", (socketId, hit) => {
+			// hit or miss response
+			// console.log("Respons träff eller miss")
+			// console.log("socketId:", socketId)
+			// console.log("hit:", hit)
+				
+			// next players turn?
+			socket.emit('game:nextPlayer', socketId)
+		})
+
+	}, [socket])
 
 
-		// emit respons
-		socket.emit('click:respons', socketId, hit)
-	})
-
-
-	// listen to if you start
-	socket.on("game:playerTurn", () => {
-		setMyTurn(true)
-		console.log("myTurn:", myTurn)
-
-	})
-
-	// listen to if other player starts
-	socket.on("game:playerWaiting", () => {
-		setMyTurn(false)
-		console.log("myTurn:", myTurn)
-
-	})
-
-<<<<<<< HEAD
-	// listen to if hit or miss
-	socket.on("response:hitormiss", (socketId, hit) => {
-		// hit or miss
-		// next players turn?
-	})
-
-
-
-=======
->>>>>>> main
 	return (
 		// Spelplan lol
 		<>
