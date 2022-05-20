@@ -13,8 +13,13 @@ const GameboardPage = ({ socket }) => {
 		e.target.classList.remove('box')
 
 		// emit till servern och fråga om det är en träff
-		socket.emit('user:click', socket.id)
-		console.log('Användare klickade på en ruta')
+
+		const id = e.target.id;
+		console.log(e.target.id)
+		console.log(id)
+		// console.log(`Användare klickade på en ruta med id: ${id}`)
+
+		socket.emit('user:click', socket.id, id)
 
 		setMyTurn(false)
 	}
@@ -39,9 +44,11 @@ const GameboardPage = ({ socket }) => {
 		})
 
 		// listen to handle hit check
-		socket.on('user:hitormiss', (socketId) => {
+		socket.on('user:hitormiss', (socketId, boxId) => {
 			// check if hit or miss
 			let hit 
+
+			
 		
 			// console.log("Kolla om hit or miss")
 			// console.log("variabeln hit:", hit)
