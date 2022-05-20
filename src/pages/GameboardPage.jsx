@@ -1,95 +1,12 @@
-import React from 'react'
-import { useState } from 'react'
-import {getDestroyerLocation, getSubmarineLocation, getCruiserLocation, getBattleshipLocation} from '../helpers/GetShips'
+import React, { useState, useEffect} from 'react'
+// import {getDestroyerLocation, getSubmarineLocation, getCruiserLocation, getBattleshipLocation} from '../helpers/GetShips'
+import randomizeShips from '../components/randomizeShips';
 
 const GameboardPage = ({ socket }) => {
     const [myTurn, setMyTurn] = useState(false)
     const [myAmountOfShips, setMyAmountOfShips] = useState(4);
     const [opponentAmountOfShips, setOpponentAmountOfShips] = useState(4);
 
-	// get all ships
-	const randomizeFourShips = () => {
-		// get a random position for Destroyer (small) 
-		const randomizeDestroyerLocation = (ship, ship2) => {
-
-			[ship, ship2] = getDestroyerLocation()
-	
-			for (let i = 0; document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship'); i++) {
-				[ship, ship2] = getDestroyerLocation()
-				console.log('the if-statment ran for small ship, i: ', i)
-			}
-		
-			document.getElementById(ship).classList.add('ship')
-			document.getElementById(ship).classList.remove('box')
-	
-			document.getElementById(ship2).classList.add('ship')
-			document.getElementById(ship2).classList.remove('box')
-			console.log('ship', ship, ship2);
-		}
-	
-		// get a random position for Submarine (small) 
-		const randomizeSubmarineLocation = (ship, ship2) => {
-	
-			[ship, ship2] = getSubmarineLocation()
-	
-			for (let i = 0; document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship'); i++) {
-				[ship, ship2] = getSubmarineLocation()
-				console.log('the if-statment ran for small ship, i: ', i)
-			}
-		
-			document.getElementById(ship).classList.add('ship')
-			document.getElementById(ship).classList.remove('box')
-	
-			document.getElementById(ship2).classList.add('ship')
-			document.getElementById(ship2).classList.remove('box')
-			console.log('ship', ship, ship2);
-		}
-	
-	   // get a random position for Cruiser (medium) 
-		const randomizeCruiserLocation = (ship, ship2, ship3) => {
-	
-			[ship, ship2, ship3] = getCruiserLocation()
-	
-			for (let i = 0; document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship') || document.getElementById(ship3).classList.contains('ship'); i++) {
-				[ship, ship2, ship3] = getCruiserLocation()
-				console.log('the if-statment ran for medium ship, i: ', i)
-			}
-	
-		   document.getElementById(ship).classList.add('ship')
-		   document.getElementById(ship).classList.remove('box')
-	
-		   document.getElementById(ship2).classList.add('ship')
-		   document.getElementById(ship2).classList.remove('box')
-	
-		   document.getElementById(ship3).classList.add('ship')
-		   document.getElementById(ship3).classList.remove('box')
-		   console.log('ship', ship, ship2, ship3);
-	
-	   }
-	
-	   // get a random position for Battleship (large) 
-	   const randomizeBattlehipLocation = (ship, ship2, ship3, ship4) => {
-	
-			[ship, ship2, ship3, ship4] = getBattleshipLocation()
-			document.getElementById(ship).classList.add('ship')
-			document.getElementById(ship).classList.remove('box')
-
-			document.getElementById(ship2).classList.add('ship')
-			document.getElementById(ship2).classList.remove('box')
-
-			document.getElementById(ship3).classList.add('ship')
-			document.getElementById(ship3).classList.remove('box')
-
-			document.getElementById(ship4).classList.add('ship')
-			document.getElementById(ship4).classList.remove('box')
-			console.log('ship', ship, ship2, ship3, ship4);
-		}
-
-	randomizeBattlehipLocation('shipFour','shipFour2','shipFour3','shipFour4')
-	randomizeCruiserLocation('shipThree','shipThree2','shipThree3')
-	randomizeSubmarineLocation('shipOne', 'shipOne2')
-	randomizeDestroyerLocation('shipTwo', 'shipTwo2')
-	}
 
 	const handleClickedOnBox = (e) => {
 		e.target.classList.add('disabledBox')
@@ -97,46 +14,56 @@ const GameboardPage = ({ socket }) => {
 
 		// emit till servern och fråga om det är en träff
 		socket.emit('user:click', socket.id)
-
-		// emit till servern att det är nästa spelares tur
-
-
+		console.log('Användare klickade på en ruta')
 
 		setMyTurn(false)
 	}
 
 
-	// Listen to check if hit or miss
-	socket.on('user:hitormiss', (socketId) => {
-		// check if hit or miss
-		let hit 
+	useEffect(() => {
+		
+		socket.on("game:start", () => {
+			randomizeShips()
+		})
 
+		// listen to if you start
+		socket.on("game:playerTurn", () => {
+			setMyTurn(true)
+			// console.log("myTurn:", myTurn)
+		} )
 
-		// emit respons
-		socket.emit('click:respons', socketId, hit)
-	})
+		// listen to if other player starts
+		socket.on("game:playerWaiting", () => {
+			setMyTurn(false)
+			// console.log("myTurn:", myTurn)
+		})
 
+		// listen to handle hit check
+		socket.on('user:hitormiss', (socketId) => {
+			// check if hit or miss
+			let hit 
+		
+			// console.log("Kolla om hit or miss")
+			// console.log("variabeln hit:", hit)
+			// console.log("socketId:", socketId)
+		
+			// emit respons
+			socket.emit('click:response', socketId, hit)
+		})
 
-	// listen to if you start
-	socket.on("game:playerTurn", () => {
-		setMyTurn(true)
-		console.log("myTurn:", myTurn)
+		// listen to hit check respons
+		socket.on("response:hitormiss", (socketId, hit) => {
+			// hit or miss response
+			// console.log("Respons träff eller miss")
+			// console.log("socketId:", socketId)
+			// console.log("hit:", hit)
+				
+			// next players turn?
+			socket.emit('game:nextPlayer', socketId)
+		})
 
-	})
-
-	// listen to if other player starts
-	socket.on("game:playerWaiting", () => {
-		setMyTurn(false)
-		console.log("myTurn:", myTurn)
-
-	})
-
-	// listen to if hit or miss
-	socket.on("response:hitormiss", (socketId, hit) => {
-		// hit or miss
-		// next players turn?
-	})
-
+	}, [socket])
+	
 
 
 	return (
@@ -152,9 +79,11 @@ const GameboardPage = ({ socket }) => {
            {/********* Gameboard  vertical - A-J     Horisont - 1-10 ********/}
            <div id='mySide'>
                 <div className="gameboard-wapper">
-                    <button onClick={()=> {
-						randomizeFourShips()
-                    }}>get a location</button>
+                    <button 
+					// onClick={()=> {
+					// 	randomizeFourShips()
+                    // }}
+					>get a location</button>
                     <div className='row'>
                         <div id='a1' className="box">a1</div>
                         <div id='a2' className="box">a2</div>
