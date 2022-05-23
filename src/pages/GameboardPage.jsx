@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react'
 // import {getDestroyerLocation, getSubmarineLocation, getCruiserLocation, getBattleshipLocation} from '../helpers/GetShips'
-import randomizeShips from '../components/randomizeShips';
+import {randomizeShips} from '../components/randomizeShips';
+// import Player from '../components/Player';
 
 const GameboardPage = ({ socket }) => {
     const [myTurn, setMyTurn] = useState(false)
@@ -76,6 +77,10 @@ const GameboardPage = ({ socket }) => {
 	return (
 		// Spelplan lol
 		<>
+		{/***   Test för skeppens HP	***/}
+		{/* <Player /> */}
+		{/***	/Test för skeppens HP	***/}
+
 		{/***   Testknappar för dev		***/}
 		<button onClick={()=>{ setMyTurn(!myTurn) }} >turn toggle</button>
 		<button onClick={()=>{ socket.emit("reset:room")}} >reset room</button>

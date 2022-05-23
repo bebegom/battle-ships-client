@@ -1,5 +1,10 @@
 import {getDestroyerLocation, getSubmarineLocation, getCruiserLocation, getBattleshipLocation} from '../helpers/GetShips'
 
+let destroyer;
+let submarine;
+let cruiser;
+let battleship;
+
 
 const randomizeShips = () => {
     // get a random position for Destroyer (small) 
@@ -18,6 +23,9 @@ const randomizeShips = () => {
         document.getElementById(ship2).classList.add('ship')
         document.getElementById(ship2).classList.remove('box')
         console.log('ship', ship, ship2);
+        destroyer = [ship, ship2]
+        console.log(destroyer)
+
     }
 
     // get a random position for Submarine (small) 
@@ -36,6 +44,9 @@ const randomizeShips = () => {
         document.getElementById(ship2).classList.add('ship')
         document.getElementById(ship2).classList.remove('box')
         console.log('ship', ship, ship2);
+        submarine = [ship, ship2]
+        console.log(submarine)
+
     }
 
    // get a random position for Cruiser (medium) 
@@ -57,7 +68,8 @@ const randomizeShips = () => {
        document.getElementById(ship3).classList.add('ship')
        document.getElementById(ship3).classList.remove('box')
        console.log('ship', ship, ship2, ship3);
-
+       cruiser = [ship, ship2, ship3]
+       console.log(cruiser)
    }
 
    // get a random position for Battleship (large) 
@@ -76,6 +88,8 @@ const randomizeShips = () => {
         document.getElementById(ship4).classList.add('ship')
         document.getElementById(ship4).classList.remove('box')
         console.log('ship', ship, ship2, ship3, ship4);
+        battleship = [ship, ship2, ship3, ship4]
+        console.log(battleship)
     }
 
 randomizeBattlehipLocation('shipFour','shipFour2','shipFour3','shipFour4')
@@ -84,4 +98,10 @@ randomizeSubmarineLocation('shipOne', 'shipOne2')
 randomizeDestroyerLocation('shipTwo', 'shipTwo2')
 }
 
-export default randomizeShips
+export {
+    randomizeShips,
+    destroyer,
+    submarine,
+    cruiser,
+    battleship,
+}
