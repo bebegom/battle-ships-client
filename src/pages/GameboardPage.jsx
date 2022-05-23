@@ -15,9 +15,6 @@ const GameboardPage = ({ socket }) => {
 		// emit till servern och fråga om det är en träff
 
 		const id = e.target.id;
-		console.log(e.target)
-
-		// console.log(`Användare klickade på en ruta med id: ${id}`)
 
 		socket.emit('user:click', socket.id, id)
 
@@ -46,37 +43,46 @@ const GameboardPage = ({ socket }) => {
 		// listen to handle hit check
 		socket.on('user:hitormiss', (socketId, boxId) => {
 			// check if hit or miss
+			console.log("Till user:hitormiss i alla fall")
 
-			console.log(boxId)
+			let hit = false;
 
-			const boxIdStr = `"#${boxId}"`;
-			
-			let hit 
+			console.log("1")
 
-			const currentBox = document.querySelector(boxIdStr);
-			if (currentBox.classList.contain('ship')) {
+			// const boxIdStr = `#${boxId}`;
+			const currentBox = document.querySelector(`#${boxId}`);
+
+			console.log("2")
+
+			if (currentBox.classList.contains('ship')) {
+				console.log("2.5")
+
 				hit = true;
-			} else {
-				hit = false;
-			}
-		
-			// console.log("Kolla om hit or miss")
-			// console.log("variabeln hit:", hit)
-			// console.log("socketId:", socketId)
+			} 
+
+			console.log("3")
+
 		
 			// emit respons
-			socket.emit('click:response', socketId, hit, currentBox)
+			socket.emit('click:response', socketId, hit, boxId)
+
+			console.log("4")
+
 		})
 
 		// listen to hit check respons
-		socket.on("response:hitormiss", (socketId, hit, currentBox) => {
+		socket.on("response:hitormiss", (socketId, hit, boxId) => {
 
-			currentBox.classList.remove('disabledbox');
+			const orBoxId = "o" + boxId;
+			const currentDiv = document.querySelector(`#${orBoxId}`);
+			currentDiv.classList.remove('disabledbox');
+
+			console.log(hit)
 
 			if (hit) {
-				currentBox.classList.add('hit')
+				currentDiv.classList.add('hit')
 			} else {
-				currentBox.classList.add('miss')
+				currentDiv.classList.add('miss')
 			}
 
 			// hit or miss response
