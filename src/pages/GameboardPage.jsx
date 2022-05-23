@@ -15,8 +15,8 @@ const GameboardPage = ({ socket }) => {
 		// emit till servern och fråga om det är en träff
 
 		const id = e.target.id;
-		console.log(e.target.id)
-		console.log(id)
+		console.log(e.target)
+
 		// console.log(`Användare klickade på en ruta med id: ${id}`)
 
 		socket.emit('user:click', socket.id, id)
@@ -46,20 +46,39 @@ const GameboardPage = ({ socket }) => {
 		// listen to handle hit check
 		socket.on('user:hitormiss', (socketId, boxId) => {
 			// check if hit or miss
+
+			console.log(boxId)
+
+			const boxIdStr = `"#${boxId}"`;
+			
 			let hit 
 
-			
+			const currentBox = document.querySelector(boxIdStr);
+			if (currentBox.classList.contain('ship')) {
+				hit = true;
+			} else {
+				hit = false;
+			}
 		
 			// console.log("Kolla om hit or miss")
 			// console.log("variabeln hit:", hit)
 			// console.log("socketId:", socketId)
 		
 			// emit respons
-			socket.emit('click:response', socketId, hit)
+			socket.emit('click:response', socketId, hit, currentBox)
 		})
 
 		// listen to hit check respons
-		socket.on("response:hitormiss", (socketId, hit) => {
+		socket.on("response:hitormiss", (socketId, hit, currentBox) => {
+
+			currentBox.classList.remove('disabledbox');
+
+			if (hit) {
+				currentBox.classList.add('hit')
+			} else {
+				currentBox.classList.add('miss')
+			}
+
 			// hit or miss response
 			// console.log("Respons träff eller miss")
 			// console.log("socketId:", socketId)
