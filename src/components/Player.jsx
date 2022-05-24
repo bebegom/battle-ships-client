@@ -1,5 +1,6 @@
-import { React, useState } from 'react'
-import { destroyer, submarine, cruiser, battleship } from './randomizeShips';
+import { React, useState, useEffect } from 'react'
+import { destroyer, submarine, cruiser, battleship } from '../components/randomizeShips';
+
 
 export default function Player() {
 	const [battleshipHP, setBattleshipHP] = useState(4);
@@ -7,11 +8,25 @@ export default function Player() {
 	const [submarineHP, setSubmarineHP] = useState(2);
 	const [destroyerHP, setDestroyerHP] = useState(2);
 
-	const [destroyer1, destroyer2] = destroyer
+	// useEffect(()=> {
+	// 	setDestroyerHP(destroyerHP-1)
+	// }, [destroyer])
+	
+	// useEffect(()=> {
+	// 	setSubmarineHP(submarineHP-1)
+	// }, [submarine])
+	
+	// useEffect(()=> {
+	// 	setCruiserHP(cruiserHP-1)
+	// }, [cruiser])
+	
+	// useEffect(()=> {
+	// 	setBattleshipHP(battleshipHP-1)
+	// }, [battleship])
 
 	return (
 		<div>
-			{/* first id: {destroyer1} and second id : {destroyer2} */}
+			BattleshipHP: {battleshipHP} CruiserHP: {cruiserHP}, submarineHP: {submarineHP}, destroyerHP: {destroyerHP}, 
 		</div>
 	)
 }

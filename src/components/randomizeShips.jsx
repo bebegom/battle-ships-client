@@ -24,7 +24,7 @@ const randomizeShips = () => {
         document.getElementById(ship2).classList.remove('box')
         console.log('ship', ship, ship2);
         destroyer = [ship, ship2]
-        console.log(destroyer)
+        console.log('destroyer', destroyer)
 
     }
 
@@ -45,7 +45,7 @@ const randomizeShips = () => {
         document.getElementById(ship2).classList.remove('box')
         console.log('ship', ship, ship2);
         submarine = [ship, ship2]
-        console.log(submarine)
+        console.log('submarine', submarine)
 
     }
 
@@ -69,7 +69,7 @@ const randomizeShips = () => {
        document.getElementById(ship3).classList.remove('box')
        console.log('ship', ship, ship2, ship3);
        cruiser = [ship, ship2, ship3]
-       console.log(cruiser)
+       console.log('cruiser', cruiser)
    }
 
    // get a random position for Battleship (large) 
@@ -89,7 +89,7 @@ const randomizeShips = () => {
         document.getElementById(ship4).classList.remove('box')
         console.log('ship', ship, ship2, ship3, ship4);
         battleship = [ship, ship2, ship3, ship4]
-        console.log(battleship)
+        console.log('battleship', battleship)
     }
 
 randomizeBattlehipLocation('shipFour','shipFour2','shipFour3','shipFour4')

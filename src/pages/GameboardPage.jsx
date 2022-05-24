@@ -1,13 +1,14 @@
 import React, { useState, useEffect} from 'react'
 // import {getDestroyerLocation, getSubmarineLocation, getCruiserLocation, getBattleshipLocation} from '../helpers/GetShips'
 import {randomizeShips} from '../components/randomizeShips';
-// import Player from '../components/Player';
+import Player from '../components/Player';
+import { destroyer, submarine, cruiser, battleship } from '../components/randomizeShips';
+import {checkArrayOfIds} from '../helpers/HPSplicer'
 
 const GameboardPage = ({ socket }) => {
     const [myTurn, setMyTurn] = useState(false)
     const [myAmountOfShips, setMyAmountOfShips] = useState(4);
     const [opponentAmountOfShips, setOpponentAmountOfShips] = useState(4);
-
 
 	const handleClickedOnBox = (e) => {
 		e.target.classList.add('disabledBox')
@@ -21,7 +22,6 @@ const GameboardPage = ({ socket }) => {
 
 		setMyTurn(false)
 	}
-
 
 	useEffect(() => {
 		
@@ -44,31 +44,50 @@ const GameboardPage = ({ socket }) => {
 		// listen to handle hit check
 		socket.on('user:hitormiss', (socketId, boxId) => {
 			// check if hit or miss
-			console.log("Till user:hitormiss i alla fall")
+			// console.log("Till user:hitormiss i alla fall")
 
 			let hit = false;
 
-			console.log("1")
+			// console.log("1")
 
 			// const boxIdStr = `#${boxId}`;
 			const currentBox = document.querySelector(`#${boxId}`);
 
-			console.log("2")
+			// console.log("2")
 
 			if (currentBox.classList.contains('ship')) {
-				console.log("2.5")
+				// console.log("2.5")
+				console.log(boxId)
 
 				hit = true;
+
+				// ta bort id:et från array med ship-positions
+				checkArrayOfIds(boxId)
+
+				// om en array är tom, minska myAmountOfShips
+				const checkIfShipSunk = () => {
+					if (battleship.length === 0 || cruiser.length === 0 ||submarine.length === 0 || destroyer.length === 0) {
+						setMyAmountOfShips(myAmountOfShips-1)
+						socket.emit('send:ship:sunk:to:opponent', socketId)
+					console.log('sending send:ship:sunk...')
+					} 
+				}
+				checkIfShipSunk()
+
+				
+				// socket.emit('hit:check:hp', boxId)
 			} 
-
-			console.log("3")
-
-		
+			
+			socket.on('sending:ship:sunk:to:opponent', () => {
+				setOpponentAmountOfShips(opponentAmountOfShips-1)
+				console.log('listening to sending:ship:sunk...')
+			})
+			// console.log("3")
+			
 			// emit respons
 			socket.emit('click:response', socketId, hit, boxId)
 
-			console.log("4")
-
+			// console.log("4")
 		})
 
 		// listen to hit check respons
@@ -78,7 +97,7 @@ const GameboardPage = ({ socket }) => {
 			const currentDiv = document.querySelector(`#${orBoxId}`);
 			currentDiv.classList.remove('disabledbox');
 
-			console.log(hit)
+			console.log('hit:', hit)
 
 			if (hit) {
 				currentDiv.classList.add('hit')
@@ -103,7 +122,7 @@ const GameboardPage = ({ socket }) => {
 		// Spelplan lol
 		<>
 		{/***   Test för skeppens HP	***/}
-		{/* <Player /> */}
+		<Player />
 		{/***	/Test för skeppens HP	***/}
 
 		{/***   Testknappar för dev		***/}
@@ -242,10 +261,10 @@ const GameboardPage = ({ socket }) => {
                         <div id='j10' className="box">j10</div>
                     </div>
                 </div>
-                <div className='scoreboard'>
+                <div id='myShipsCount' className='scoreboard'>
                     <h2 className={myTurn ? 'playersTurn' : ''}>You</h2> {/* if-statment- if it is my turn give this .playersTurn */}
                     Amount of ships I have left: {myAmountOfShips}
-                    </div>
+                </div>
             </div>
            {/********* / Gameboard ********/}
 
