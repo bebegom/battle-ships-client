@@ -2,12 +2,12 @@ import React, { useState, useEffect} from 'react'
 // import {getDestroyerLocation, getSubmarineLocation, getCruiserLocation, getBattleshipLocation} from '../helpers/GetShips'
 import {randomizeShips} from '../components/randomizeShips';
 import Player from '../components/Player';
-import { destroyer, submarine, cruiser, battleship } from '../components/randomizeShips';
+import { destroyer, submarine, cruiser, battleship, myShips } from '../components/randomizeShips';
 import {checkArrayOfIds} from '../helpers/HPSplicer'
 
 const GameboardPage = ({ socket }) => {
     const [myTurn, setMyTurn] = useState(false)
-    const [myAmountOfShips, setMyAmountOfShips] = useState(4);
+	const [shipsLeft, setShipsLeft] = useState(4)
     const [opponentAmountOfShips, setOpponentAmountOfShips] = useState(4);
 
 	const handleClickedOnBox = (e) => {
@@ -28,6 +28,7 @@ const GameboardPage = ({ socket }) => {
 		
 		socket.on("game:start", () => {
 			randomizeShips()
+			console.log(myShips)
 		})
 
 		// listen to if you start
@@ -63,13 +64,26 @@ const GameboardPage = ({ socket }) => {
 				// ta bort id:et från array med ship-positions
 				checkArrayOfIds(boxId)
 
+				console.log('myShips length: ', myShips.length)
+
+				// TODO:
 				// om en array är tom, minska myAmountOfShips
 				const checkIfShipSunk = () => {
-					if (battleship.length === 0 || cruiser.length === 0 ||submarine.length === 0 || destroyer.length === 0) {
-						setMyAmountOfShips(myAmountOfShips-1)
+					if (myShips[0].length === 0) {
+						console.log('battleship is empty, remove it!')
+						setShipsLeft(shipsLeft-1)
 						socket.emit('send:ship:sunk:to:opponent', socketId)
-					console.log('sending send:ship:sunk...')
+						console.log('sending send:ship:sunk...')
 					} 
+					if(myShips[1].length===0) {
+						setShipsLeft(shipsLeft-1)
+					}
+					if(myShips[2].length===0) {
+						setShipsLeft(shipsLeft-1)
+					}
+					if(myShips[3].length===0) {
+						setShipsLeft(shipsLeft-1)
+					}
 				}
 				checkIfShipSunk()
 
@@ -268,7 +282,8 @@ const GameboardPage = ({ socket }) => {
                 </div>
                 <div id='myShipsCount' className='scoreboard'>
                     <h2 className={myTurn ? 'playersTurn' : ''}>You</h2> {/* if-statment- if it is my turn give this .playersTurn */}
-                    Amount of ships I have left: {myAmountOfShips}
+					{/* TODO: */}
+                    Amount of ships I have left: {shipsLeft}
                 </div>
             </div>
            {/********* / Gameboard ********/}

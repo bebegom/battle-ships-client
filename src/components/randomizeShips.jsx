@@ -4,6 +4,7 @@ let destroyer;
 let submarine;
 let cruiser;
 let battleship;
+let myShips;
 
 
 const randomizeShips = () => {
@@ -96,6 +97,8 @@ randomizeBattlehipLocation('shipFour','shipFour2','shipFour3','shipFour4')
 randomizeCruiserLocation('shipThree','shipThree2','shipThree3')
 randomizeSubmarineLocation('shipOne', 'shipOne2')
 randomizeDestroyerLocation('shipTwo', 'shipTwo2')
+
+myShips = [battleship, cruiser, submarine, destroyer]
 }
 
 export {
@@ -104,4 +107,5 @@ export {
     submarine,
     cruiser,
     battleship,
+    myShips,
 }
