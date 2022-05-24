@@ -84,7 +84,7 @@ const GameboardPage = ({ socket }) => {
 			// console.log("3")
 			
 			// emit respons
-			socket.emit('click:response', socketId, hit, boxId)
+			socket.emit('click:response', socketId, boxId, hit)
 
 			// console.log("4")
 		})
