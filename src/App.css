@@ -13,13 +13,22 @@
 	background-color: rgb(166, 209, 236);
 }
 
+#mySide .hit {
+	background-color: green;
+}
+
+#mySide .miss {
+	background-color: red;
+}
+
+
 /* color of opponent's boxes on the board */
 #opponentSide .box {
 	background-color: rgb(236, 234, 233);
 }
 
 .disabledBox {
-	background-color: black;
+	font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
 .scoreboard {
