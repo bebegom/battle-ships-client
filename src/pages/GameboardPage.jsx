@@ -11,16 +11,17 @@ const GameboardPage = ({ socket }) => {
     const [opponentAmountOfShips, setOpponentAmountOfShips] = useState(4);
 
 	const handleClickedOnBox = (e) => {
-		e.target.classList.add('disabledBox')
-		e.target.classList.remove('box')
+		if (!e.target.classList.contains('disabledBox')) {
+			e.target.classList.add('disabledBox')
+			e.target.classList.remove('box')
 
-		// emit till servern och fråga om det är en träff
+			// emit till servern och fråga om det är en träff
+			const id = e.target.id;
+			socket.emit('user:click', socket.id, id)
 
-		const id = e.target.id;
-
-		socket.emit('user:click', socket.id, id)
-
-		setMyTurn(false)
+			// Nästa spelares tur
+			setMyTurn(false)
+		}
 	}
 
 	useEffect(() => {
@@ -32,13 +33,11 @@ const GameboardPage = ({ socket }) => {
 		// listen to if you start
 		socket.on("game:playerTurn", () => {
 			setMyTurn(true)
-			// console.log("myTurn:", myTurn)
 		} )
 
 		// listen to if other player starts
 		socket.on("game:playerWaiting", () => {
 			setMyTurn(false)
-			// console.log("myTurn:", myTurn)
 		})
 
 		// listen to handle hit check
@@ -90,25 +89,31 @@ const GameboardPage = ({ socket }) => {
 			// console.log("4")
 		})
 
+		socket.on("opponentClick:respons", (socketId, boxId, hit) => {
+			const currentBox = document.querySelector(`#${boxId}`);
+
+			if (hit) {
+				currentBox.classList.remove('box')
+				currentBox.classList.add('hit')
+
+			} else {
+				currentBox.classList.remove('box')
+				currentBox.classList.add('miss')
+			}
+		})
+
 		// listen to hit check respons
-		socket.on("response:hitormiss", (socketId, hit, boxId) => {
+		socket.on("response:hitormiss", (socketId, boxId, hit) => {
 
 			const orBoxId = "o" + boxId;
 			const currentDiv = document.querySelector(`#${orBoxId}`);
 			currentDiv.classList.remove('disabledbox');
-
-			console.log('hit:', hit)
 
 			if (hit) {
 				currentDiv.classList.add('hit')
 			} else {
 				currentDiv.classList.add('miss')
 			}
-
-			// hit or miss response
-			// console.log("Respons träff eller miss")
-			// console.log("socketId:", socketId)
-			// console.log("hit:", hit)
 				
 			// next players turn?
 			socket.emit('game:nextPlayer', socketId)
