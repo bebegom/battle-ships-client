@@ -1,14 +1,15 @@
 import React, { useState, useEffect} from 'react'
-// import {getDestroyerLocation, getSubmarineLocation, getCruiserLocation, getBattleshipLocation} from '../helpers/GetShips'
 import {randomizeShips} from '../components/randomizeShips';
 import Player from '../components/Player';
-import { destroyer, submarine, cruiser, battleship, myShips } from '../components/randomizeShips';
+import {myShips} from '../components/randomizeShips';
 import {checkArrayOfIds} from '../helpers/HPSplicer'
 
 const GameboardPage = ({ socket }) => {
     const [myTurn, setMyTurn] = useState(false)
+	const [amountOfShipsLeft, setAmountOfShipsLeft] = useState(4)
 	const [shipsLeft, setShipsLeft] = useState(4)
-    const [opponentAmountOfShips, setOpponentAmountOfShips] = useState(4);
+    const [opponentAmountOfShips, setOpponentAmountOfShips] = useState(4)
+	// const [trueIndexes, setTrueIndexes] = useState([[],[],[],[]])
 
 	const handleClickedOnBox = (e) => {
 		if (!e.target.classList.contains('disabledBox')) {
@@ -28,7 +29,6 @@ const GameboardPage = ({ socket }) => {
 		
 		socket.on("game:start", () => {
 			randomizeShips()
-			// console.log(myShips)
 		})
 
 		// listen to if you start
@@ -44,19 +44,11 @@ const GameboardPage = ({ socket }) => {
 		// listen to handle hit check
 		socket.on('user:hitormiss', (socketId, boxId) => {
 			// check if hit or miss
-			// console.log("Till user:hitormiss i alla fall")
-
 			let hit = false;
 
-			// console.log("1")
-
-			// const boxIdStr = `#${boxId}`;
 			const currentBox = document.querySelector(`#${boxId}`);
 
-			// console.log("2")
-
 			if (currentBox.classList.contains('ship')) {
-				// console.log("2.5")
 				console.log('opponent clicked on:', boxId)
 
 				hit = true;
@@ -70,41 +62,27 @@ const GameboardPage = ({ socket }) => {
 				const checkIfShipSunk = () => {
 					if (myShips[0].length === 0) {
 						myShips[0] = false
-						console.log('battleship [0] is empty')
-						console.log('myShips after sunken ship: ', myShips)
-						// kolla hur många index av myShips som är true
-						const TrueIndexes = myShips.find((index) => index )
-						setShipsLeft(TrueIndexes.length)
+
+						console.log('shipsLeft: ', shipsLeft)
 						socket.emit('send:ship:sunk:to:opponent', socketId)
-						// console.log('sending send:ship:sunk...')
 					} 
 					if(myShips[1].length===0) {
 						myShips[1] = false
-						console.log('myShips after sunken ship: ', myShips)
-						// kolla hur många index av myShips som är true
-						const TrueIndexes = myShips.find((index) => index )
-						setShipsLeft(TrueIndexes.length)
+
 						socket.emit('send:ship:sunk:to:opponent', socketId)
 					}
 					if(myShips[2].length===0) {
 						myShips[2] = false
-						console.log('myShips after sunken ship: ', myShips)
-						// kolla hur många index av myShips som är true
-						const TrueIndexes = myShips.find((index) => index )
-						setShipsLeft(TrueIndexes.length)
+
 						socket.emit('send:ship:sunk:to:opponent', socketId)
 					}
 					if(myShips[3].length===0) {
 						myShips[3] = false
-						console.log('myShips after sunken ship: ', myShips)
-						// kolla hur många index av myShips som är true
-						const TrueIndexes = myShips.find((index) => index )
-						setShipsLeft(TrueIndexes.length)
+
 						socket.emit('send:ship:sunk:to:opponent', socketId)
 					}
 				}
 				checkIfShipSunk()
-
 				
 				// socket.emit('hit:check:hp', boxId)
 			} 
@@ -112,7 +90,11 @@ const GameboardPage = ({ socket }) => {
 			socket.on('sending:ship:sunk:to:opponent', () => {
 				setOpponentAmountOfShips(opponentAmountOfShips-1)
 				// console.log('listening to sending:ship:sunk...')
+				// socket.emit('send:update:shipsLeft')
 			})
+
+			
+
 			// console.log("3")
 			
 			// emit respons
@@ -149,6 +131,11 @@ const GameboardPage = ({ socket }) => {
 				
 			// next players turn?
 			socket.emit('game:nextPlayer', socketId)
+		})
+
+		socket.on('your:ship:sunk', () => {
+			const trueArr = myShips.filter(index => index)
+			setShipsLeft(trueArr.length)
 		})
 
 	}, [socket])
