@@ -59,7 +59,6 @@ const GameboardPage = ({ socket }) => {
 				checkArrayOfIds(boxId)
 				// console.log('myShips efter splicing: ', myShips)
 
-				// TODO:
 				// om en array är tom, minska myAmountOfShips
 				const checkIfShipSunk = () => {
 					if (myShips[0].length === 0) {
@@ -124,7 +123,8 @@ const GameboardPage = ({ socket }) => {
 		socket.on('your:ship:sunk', (opponent) => {
 			const trueArr = myShips.filter(index => index)
 			if(trueArr.length === 0) {
-				console.log('you lost!')
+				setILost(true)
+				console.log('you lost! ', iLost)
 				// send to server that opponent won
 				socket.emit('player:has:no:ships:left', opponent)
 			}
@@ -132,7 +132,8 @@ const GameboardPage = ({ socket }) => {
 		})
 
 		socket.on('opponent:have:no:ships:left', () => {
-			console.log('you win!')
+			setIWon(true)
+			console.log('you win! ', iWon)
 		})
 
 	}, [socket])
@@ -152,10 +153,8 @@ const GameboardPage = ({ socket }) => {
 			{/***	/Testknappar för dev	***/}
 
 			{/***  Visa component om man vunnit eller förlorat   ***/}
-			{/* 
-			{ iWon && <component /> }
-			{ iLost && <component /> } 
-			*/}
+			{ iWon && <h1>YOU WON</h1> }
+			{ iLost && <h1>YOU LOST</h1> } 
 			{/***  /Visa component om man vunnit eller förlorat   ***/}
 
 
