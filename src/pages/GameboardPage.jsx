@@ -28,7 +28,7 @@ const GameboardPage = ({ socket }) => {
 		
 		socket.on("game:start", () => {
 			randomizeShips()
-			console.log(myShips)
+			// console.log(myShips)
 		})
 
 		// listen to if you start
@@ -57,32 +57,50 @@ const GameboardPage = ({ socket }) => {
 
 			if (currentBox.classList.contains('ship')) {
 				// console.log("2.5")
-				console.log(boxId)
+				console.log('opponent clicked on:', boxId)
 
 				hit = true;
 
 				// ta bort id:et från array med ship-positions
 				checkArrayOfIds(boxId)
-
-				console.log('myShips length: ', myShips.length)
+				console.log('myShips efter splicing: ', myShips)
 
 				// TODO:
 				// om en array är tom, minska myAmountOfShips
 				const checkIfShipSunk = () => {
 					if (myShips[0].length === 0) {
-						console.log('battleship is empty, remove it!')
-						setShipsLeft(shipsLeft-1)
+						myShips[0] = false
+						console.log('battleship [0] is empty')
+						console.log('myShips after sunken ship: ', myShips)
+						// kolla hur många index av myShips som är true
+						const TrueIndexes = myShips.find((index) => index )
+						setShipsLeft(TrueIndexes.length)
 						socket.emit('send:ship:sunk:to:opponent', socketId)
-						console.log('sending send:ship:sunk...')
+						// console.log('sending send:ship:sunk...')
 					} 
 					if(myShips[1].length===0) {
-						setShipsLeft(shipsLeft-1)
+						myShips[1] = false
+						console.log('myShips after sunken ship: ', myShips)
+						// kolla hur många index av myShips som är true
+						const TrueIndexes = myShips.find((index) => index )
+						setShipsLeft(TrueIndexes.length)
+						socket.emit('send:ship:sunk:to:opponent', socketId)
 					}
 					if(myShips[2].length===0) {
-						setShipsLeft(shipsLeft-1)
+						myShips[2] = false
+						console.log('myShips after sunken ship: ', myShips)
+						// kolla hur många index av myShips som är true
+						const TrueIndexes = myShips.find((index) => index )
+						setShipsLeft(TrueIndexes.length)
+						socket.emit('send:ship:sunk:to:opponent', socketId)
 					}
 					if(myShips[3].length===0) {
-						setShipsLeft(shipsLeft-1)
+						myShips[3] = false
+						console.log('myShips after sunken ship: ', myShips)
+						// kolla hur många index av myShips som är true
+						const TrueIndexes = myShips.find((index) => index )
+						setShipsLeft(TrueIndexes.length)
+						socket.emit('send:ship:sunk:to:opponent', socketId)
 					}
 				}
 				checkIfShipSunk()
@@ -93,7 +111,7 @@ const GameboardPage = ({ socket }) => {
 			
 			socket.on('sending:ship:sunk:to:opponent', () => {
 				setOpponentAmountOfShips(opponentAmountOfShips-1)
-				console.log('listening to sending:ship:sunk...')
+				// console.log('listening to sending:ship:sunk...')
 			})
 			// console.log("3")
 			
@@ -394,9 +412,9 @@ const GameboardPage = ({ socket }) => {
 							}
 						}} id='ob9' className="box">b9</div>
                         <div 
-							onClick={() => {
+							onClick={(e) => {
 								if (myTurn) {
-									handleClickedOnBox()
+									handleClickedOnBox(e)
 								}
 							}} 
 							id='ob10' className="box"

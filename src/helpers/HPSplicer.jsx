@@ -19,14 +19,21 @@ export const checkArrayOfIds = (id) => {
     //     console.log('battleship after splice: ', battleship)
     // }
     
-    if(myShips[0].includes(id)) {
-        myShips[0].splice(myShips[0].indexOf(id), 1)
-    } else if (myShips[1].includes(id)) {
-        myShips[1].splice(myShips[0].indexOf(id), 1)
-    } else if (myShips[2].includes(id)) {
-        myShips[2].splice(myShips[0].indexOf(id), 1)
-    } else if ( myShips[3].includes(id)) {
-        myShips[3].splice(myShips[0].indexOf(id), 1)
+    if(myShips[0] && myShips[0].includes(id)) {
+        // myShips[0].splice(myShips[0].indexOf(id), 1)
+        myShips[0] = myShips[0].filter( index => index !== id )
+    } 
+     if (myShips[1] && myShips[1].includes(id)) {
+        // myShips[1].splice(myShips[0].indexOf(id), 1)
+        myShips[1] = myShips[1].filter( index => index !== id )
+    } 
+     if ( myShips[2] && myShips[2].includes(id)) {
+        // myShips[2].splice(myShips[0].indexOf(id), 1)
+        myShips[2] = myShips[2].filter( index => index !== id )
+    } 
+     if (myShips[3] && myShips[3].includes(id)) {
+        // myShips[3].splice(myShips[0].indexOf(id), 1)
+        myShips[3] = myShips[3].filter( index => index !== id )
     }
 
     // myShips = [battleship, cruiser, submarine, destroyer]

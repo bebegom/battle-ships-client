@@ -15,7 +15,7 @@ const randomizeShips = () => {
 
         for (let i = 0; document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship'); i++) {
             [ship, ship2] = getDestroyerLocation()
-            console.log('the if-statment ran for small ship, i: ', i)
+            // console.log('the if-statment ran for small ship, i: ', i)
         }
     
         document.getElementById(ship).classList.add('ship')
@@ -23,9 +23,9 @@ const randomizeShips = () => {
 
         document.getElementById(ship2).classList.add('ship')
         document.getElementById(ship2).classList.remove('box')
-        console.log('ship', ship, ship2);
+        // console.log('ship', ship, ship2);
         destroyer = [ship, ship2]
-        console.log('destroyer', destroyer)
+        // console.log('destroyer', destroyer)
 
     }
 
@@ -36,7 +36,7 @@ const randomizeShips = () => {
 
         for (let i = 0; document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship'); i++) {
             [ship, ship2] = getSubmarineLocation()
-            console.log('the if-statment ran for small ship, i: ', i)
+            // console.log('the if-statment ran for small ship, i: ', i)
         }
     
         document.getElementById(ship).classList.add('ship')
@@ -46,7 +46,7 @@ const randomizeShips = () => {
         document.getElementById(ship2).classList.remove('box')
         console.log('ship', ship, ship2);
         submarine = [ship, ship2]
-        console.log('submarine', submarine)
+        // console.log('submarine', submarine)
 
     }
 
@@ -57,7 +57,7 @@ const randomizeShips = () => {
 
         for (let i = 0; document.getElementById(ship).classList.contains('ship') || document.getElementById(ship2).classList.contains('ship') || document.getElementById(ship3).classList.contains('ship'); i++) {
             [ship, ship2, ship3] = getCruiserLocation()
-            console.log('the if-statment ran for medium ship, i: ', i)
+            // console.log('the if-statment ran for medium ship, i: ', i)
         }
 
        document.getElementById(ship).classList.add('ship')
@@ -70,7 +70,7 @@ const randomizeShips = () => {
        document.getElementById(ship3).classList.remove('box')
        console.log('ship', ship, ship2, ship3);
        cruiser = [ship, ship2, ship3]
-       console.log('cruiser', cruiser)
+    //    console.log('cruiser', cruiser)
    }
 
    // get a random position for Battleship (large) 
@@ -88,9 +88,9 @@ const randomizeShips = () => {
 
         document.getElementById(ship4).classList.add('ship')
         document.getElementById(ship4).classList.remove('box')
-        console.log('ship', ship, ship2, ship3, ship4);
+        // console.log('ship', ship, ship2, ship3, ship4);
         battleship = [ship, ship2, ship3, ship4]
-        console.log('battleship', battleship)
+        // console.log('battleship', battleship)
     }
 
 randomizeBattlehipLocation('shipFour','shipFour2','shipFour3','shipFour4')
