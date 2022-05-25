@@ -10,6 +10,8 @@ const GameboardPage = ({ socket }) => {
 	const [shipsLeft, setShipsLeft] = useState(4)
     const [opponentAmountOfShips, setOpponentAmountOfShips] = useState(4)
 	// const [trueIndexes, setTrueIndexes] = useState([[],[],[],[]])
+	const [iWon, setIWon] = useState(false)
+	const [iLost, setILost] = useState(false)
 
 	const handleClickedOnBox = (e) => {
 		if (!e.target.classList.contains('disabledBox')) {
@@ -124,7 +126,6 @@ const GameboardPage = ({ socket }) => {
 			if(trueArr.length === 0) {
 				console.log('you lost!')
 				// send to server that opponent won
-				// TODO: skicka med socketId
 				socket.emit('player:has:no:ships:left', opponent)
 			}
 			setShipsLeft(trueArr.length)
@@ -141,14 +142,21 @@ const GameboardPage = ({ socket }) => {
 	return (
 		// Spelplan lol
 		<>
-		{/***   Test för skeppens HP	***/}
-		<Player />
-		{/***	/Test för skeppens HP	***/}
+			{/***   Test för skeppens HP	***/}
+			<Player />
+			{/***	/Test för skeppens HP	***/}
 
-		{/***   Testknappar för dev		***/}
-		<button onClick={()=>{ setMyTurn(!myTurn) }} >turn toggle</button>
-		<button onClick={()=>{ socket.emit("reset:room")}} >reset room</button>
-		{/***	/Testknappar för dev	***/}
+			{/***   Testknappar för dev		***/}
+			<button onClick={()=>{ setMyTurn(!myTurn) }} >turn toggle</button>
+			<button onClick={()=>{ socket.emit("reset:room")}} >reset room</button>
+			{/***	/Testknappar för dev	***/}
+
+			{/***  Visa component om man vunnit eller förlorat   ***/}
+			{/* 
+			{ iWon && <component /> }
+			{ iLost && <component /> } 
+			*/}
+			{/***  /Visa component om man vunnit eller förlorat   ***/}
 
 
            <h1>Battleship</h1>
@@ -283,7 +291,6 @@ const GameboardPage = ({ socket }) => {
                 </div>
                 <div id='myShipsCount' className='scoreboard'>
                     <h2 className={myTurn ? 'playersTurn' : ''}>You</h2> {/* if-statment- if it is my turn give this .playersTurn */}
-					{/* TODO: */}
                     Amount of ships I have left: {shipsLeft}
                 </div>
             </div>
