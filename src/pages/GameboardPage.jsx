@@ -49,20 +49,20 @@ const GameboardPage = ({ socket }) => {
 			const currentBox = document.querySelector(`#${boxId}`);
 
 			if (currentBox.classList.contains('ship')) {
-				console.log('opponent clicked on:', boxId)
+				// console.log('opponent clicked on:', boxId)
 
 				hit = true;
 
 				// ta bort id:et från array med ship-positions
 				checkArrayOfIds(boxId)
-				console.log('myShips efter splicing: ', myShips)
+				// console.log('myShips efter splicing: ', myShips)
 
 				// TODO:
 				// om en array är tom, minska myAmountOfShips
 				const checkIfShipSunk = () => {
 					if (myShips[0].length === 0) {
 						myShips[0] = false
-						console.log('shipsLeft: ', shipsLeft)
+						// console.log('shipsLeft: ', shipsLeft)
 						socket.emit('send:ship:sunk:to:opponent', socketId)
 					} 
 					if(myShips[1].length===0) {
@@ -119,9 +119,19 @@ const GameboardPage = ({ socket }) => {
 			setOpponentAmountOfShips(prevvalue => prevvalue - 1)
 		})
 
-		socket.on('your:ship:sunk', () => {
+		socket.on('your:ship:sunk', (opponent) => {
 			const trueArr = myShips.filter(index => index)
+			if(trueArr.length === 0) {
+				console.log('you lost!')
+				// send to server that opponent won
+				// TODO: skicka med socketId
+				socket.emit('player:has:no:ships:left', opponent)
+			}
 			setShipsLeft(trueArr.length)
+		})
+
+		socket.on('opponent:have:no:ships:left', () => {
+			console.log('you win!')
 		})
 
 	}, [socket])

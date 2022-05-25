@@ -68,7 +68,7 @@ const randomizeShips = () => {
 
        document.getElementById(ship3).classList.add('ship')
        document.getElementById(ship3).classList.remove('box')
-       console.log('ship', ship, ship2, ship3);
+    //    console.log('ship', ship, ship2, ship3);
        cruiser = [ship, ship2, ship3]
     //    console.log('cruiser', cruiser)
    }
