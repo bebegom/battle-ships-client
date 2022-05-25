@@ -6,7 +6,7 @@ import {checkArrayOfIds} from '../helpers/HPSplicer'
 
 const GameboardPage = ({ socket }) => {
     const [myTurn, setMyTurn] = useState(false)
-	const [amountOfShipsLeft, setAmountOfShipsLeft] = useState(4)
+	// const [amountOfShipsLeft, setAmountOfShipsLeft] = useState(4)
 	const [shipsLeft, setShipsLeft] = useState(4)
     const [opponentAmountOfShips, setOpponentAmountOfShips] = useState(4)
 	// const [trueIndexes, setTrueIndexes] = useState([[],[],[],[]])
@@ -62,45 +62,27 @@ const GameboardPage = ({ socket }) => {
 				const checkIfShipSunk = () => {
 					if (myShips[0].length === 0) {
 						myShips[0] = false
-
 						console.log('shipsLeft: ', shipsLeft)
 						socket.emit('send:ship:sunk:to:opponent', socketId)
 					} 
 					if(myShips[1].length===0) {
 						myShips[1] = false
-
 						socket.emit('send:ship:sunk:to:opponent', socketId)
 					}
 					if(myShips[2].length===0) {
 						myShips[2] = false
-
 						socket.emit('send:ship:sunk:to:opponent', socketId)
 					}
 					if(myShips[3].length===0) {
 						myShips[3] = false
-
 						socket.emit('send:ship:sunk:to:opponent', socketId)
 					}
 				}
 				checkIfShipSunk()
-				
-				// socket.emit('hit:check:hp', boxId)
-			} 
-			
-			socket.on('sending:ship:sunk:to:opponent', () => {
-				setOpponentAmountOfShips(opponentAmountOfShips-1)
-				// console.log('listening to sending:ship:sunk...')
-				// socket.emit('send:update:shipsLeft')
-			})
+			}
 
-			
-
-			// console.log("3")
-			
 			// emit respons
 			socket.emit('click:response', socketId, boxId, hit)
-
-			// console.log("4")
 		})
 
 		socket.on("opponentClick:respons", (socketId, boxId, hit) => {
@@ -131,6 +113,10 @@ const GameboardPage = ({ socket }) => {
 				
 			// next players turn?
 			socket.emit('game:nextPlayer', socketId)
+		})
+
+		socket.on('sending:ship:sunk:to:opponent', () => {
+			setOpponentAmountOfShips(prevvalue => prevvalue - 1)
 		})
 
 		socket.on('your:ship:sunk', () => {
