@@ -1,12 +1,12 @@
 import React from 'react'
 
 
-export default function WinOverlay({ socket }) {
+export default function WinOverlay({ playAgain }) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		// play again?
-
+		playAgain()
+		
 	}
 
 	return (

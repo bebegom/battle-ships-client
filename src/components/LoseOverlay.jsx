@@ -1,12 +1,12 @@
 import React from 'react'
 
 
-export default function LoseOverlay({ socket }) {
+export default function LoseOverlay({ playAgain }) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		// play again?
-
+		playAgain()
+		
 	}
 
 	return (

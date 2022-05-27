@@ -6,7 +6,6 @@ let cruiser;
 let battleship;
 let myShips;
 
-
 const randomizeShips = () => {
     // get a random position for Destroyer (small) 
     const randomizeDestroyerLocation = (ship, ship2) => {
