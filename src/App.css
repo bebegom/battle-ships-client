@@ -1,30 +1,90 @@
+body {
+	margin: 0;
+	animation: scroll 150s linear infinite;
+	background: url("https://images.unsplash.com/photo-1465146633011-14f8e0781093?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3450&q=80");
+	color: #000000;
+	height: 100vh;
+	background-size: cover;
+	perspective: 1000px;
+	perspective-origin: 50% 50%;
+	font-family: 'Orbitron', sans-serif;
+	cursor: crosshair;
+}
+
+@keyframes scroll {
+	100%{
+		background-position:0px -3000px;
+	}
+}
+
+@media (prefers-reduced-motion) {
+	#App {
+		animation: scroll 200s linear infinite;
+	}
+}
+
+h1 { 
+	background-color: #0e0e0ee5;
+	color: #eee;
+	padding: 15px;
+	text-align: center;
+	margin: 0;
+}
+
+.gameboard {
+	margin: auto;
+	background-color: #8c8c8c8c;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 50px;
+	width: 85vw;
+	/* height: 100%; */
+}
+
 .row {
 	display: grid;
-	grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
-	height: 50px;
+	grid-template-columns: 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px;
+	height: 40px;
 }
 
 .box {
-	border: 1px black solid;
+	border: 1px rgba(0, 0, 0, 0.488) solid;
+	padding: 10px;
+	text-align: center;
+	color: #42424295;
+	font-size: 0.7rem;
 }
 
 /* color of player's boxes on the board */
 #mySide .box {
-	background-color: rgb(166, 209, 236);
+	background-color: rgba(117, 117, 117, 0.67);
 }
 
 #mySide .hit {
-	background-color: green;
+	/* background-color: green; */
+	background-image: url('./assets/images/boom.png');
+	background-size: cover;
 }
 
 #mySide .miss {
-	background-color: red;
+	/* background-color: red; */
+	/* background-color: rgba(117, 117, 117, 0); */
+	background-image: url('./assets/images/space.png');
+	background-size: cover;
 }
 
+#opponentSide {
+	margin-top: 50px;
+}
 
 /* color of opponent's boxes on the board */
 #opponentSide .box {
-	background-color: rgb(236, 234, 233);
+	background-color: rgba(236, 234, 233, 0.855);
+}
+
+#opponentSide .box:hover {
+	background-color: rgba(177, 177, 177, 0.855);
 }
 
 .disabledBox {
@@ -32,26 +92,44 @@
 }
 
 .scoreboard {
-	background-color: rgb(206, 230, 233);
-	padding: 2%;
-	width: 40vw;
+	background-color: rgba(228, 229, 229, 0.601);
+	padding: 3%;
+	height: 120px;
+	text-align: center;
+	margin-bottom: 10px;
 }
 
 /* give who ever's turn it is this className */
 .playersTurn {
-	background-color: rgb(67, 90, 104);
-	color: rgb(238, 238, 238);
-	width: 40%;
+	background-color: rgb(178, 187, 193);
+	border: #979a9c solid 2px;
+	border-radius: 30px;
+	padding: 10px;
 }
 
 .ship {
-	background-color: rgb(236, 234, 233);
+	background-color: rgba(236, 234, 233, 0.553);
 }
 
 .hit {
-	background-color: green;
+	/* background-color: green; */
+	background-image: url('./assets/images/boom.png');
+	background-size: cover;
 }
 
 .miss {
-	background-color: red;
+	/* background-color: red; */
+	background-image: url('./assets/images/space.png');
+	background-size: cover;
+}
+
+@media screen and (min-width: 950px) {
+	.gameboard {
+		flex-direction: row;
+		justify-content: space-around;
+	}
+
+	#opponentSide {
+		margin-top: 0;
+	}
 }
