@@ -10,6 +10,8 @@ const GameboardPage = ({ socket }) => {
 	const [shipsLeft, setShipsLeft] = useState(4)
     const [opponentAmountOfShips, setOpponentAmountOfShips] = useState(4)
 	// const [trueIndexes, setTrueIndexes] = useState([[],[],[],[]])
+	const [iWon, setIWon] = useState(false)
+	const [iLost, setILost] = useState(false)
 
 	const handleClickedOnBox = (e) => {
 		if (!e.target.classList.contains('disabledBox')) {
@@ -49,20 +51,19 @@ const GameboardPage = ({ socket }) => {
 			const currentBox = document.querySelector(`#${boxId}`);
 
 			if (currentBox.classList.contains('ship')) {
-				console.log('opponent clicked on:', boxId)
+				// console.log('opponent clicked on:', boxId)
 
 				hit = true;
 
 				// ta bort id:et från array med ship-positions
 				checkArrayOfIds(boxId)
-				console.log('myShips efter splicing: ', myShips)
+				// console.log('myShips efter splicing: ', myShips)
 
-				// TODO:
 				// om en array är tom, minska myAmountOfShips
 				const checkIfShipSunk = () => {
 					if (myShips[0].length === 0) {
 						myShips[0] = false
-						console.log('shipsLeft: ', shipsLeft)
+						// console.log('shipsLeft: ', shipsLeft)
 						socket.emit('send:ship:sunk:to:opponent', socketId)
 					} 
 					if(myShips[1].length===0) {
@@ -119,9 +120,20 @@ const GameboardPage = ({ socket }) => {
 			setOpponentAmountOfShips(prevvalue => prevvalue - 1)
 		})
 
-		socket.on('your:ship:sunk', () => {
+		socket.on('your:ship:sunk', (opponent) => {
 			const trueArr = myShips.filter(index => index)
+			if(trueArr.length === 0) {
+				setILost(true)
+				console.log('you lost! ', iLost)
+				// send to server that opponent won
+				socket.emit('player:has:no:ships:left', opponent)
+			}
 			setShipsLeft(trueArr.length)
+		})
+
+		socket.on('opponent:have:no:ships:left', () => {
+			setIWon(true)
+			console.log('you win! ', iWon)
 		})
 
 	}, [socket])
@@ -131,14 +143,19 @@ const GameboardPage = ({ socket }) => {
 	return (
 		// Spelplan lol
 		<>
-		{/***   Test för skeppens HP	***/}
-		<Player />
-		{/***	/Test för skeppens HP	***/}
+			{/***   Test för skeppens HP	***/}
+			<Player />
+			{/***	/Test för skeppens HP	***/}
 
-		{/***   Testknappar för dev		***/}
-		<button onClick={()=>{ setMyTurn(!myTurn) }} >turn toggle</button>
-		<button onClick={()=>{ socket.emit("reset:room")}} >reset room</button>
-		{/***	/Testknappar för dev	***/}
+			{/***   Testknappar för dev		***/}
+			<button onClick={()=>{ setMyTurn(!myTurn) }} >turn toggle</button>
+			<button onClick={()=>{ socket.emit("reset:room")}} >reset room</button>
+			{/***	/Testknappar för dev	***/}
+
+			{/***  Visa component om man vunnit eller förlorat   ***/}
+			{ iWon && <h1>YOU WON</h1> }
+			{ iLost && <h1>YOU LOST</h1> } 
+			{/***  /Visa component om man vunnit eller förlorat   ***/}
 
 
            <h1>Battleship</h1>
@@ -273,7 +290,6 @@ const GameboardPage = ({ socket }) => {
                 </div>
                 <div id='myShipsCount' className='scoreboard'>
                     <h2 className={myTurn ? 'playersTurn' : ''}>You</h2> {/* if-statment- if it is my turn give this .playersTurn */}
-					{/* TODO: */}
                     Amount of ships I have left: {shipsLeft}
                 </div>
             </div>
