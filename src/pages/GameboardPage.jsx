@@ -145,16 +145,17 @@ const GameboardPage = ({ socket }) => {
 
 
 		<>
-			<h1>Battleship</h1>
-			{/********* / Gameboard ********/}
-			<div id='mySide'>
-				<div className="gameboardWrapper">
-					<MyBattleboard />
-                </div>
+			<h1>War of the galaxy</h1>
+           {/********* Gameboard  vertical - A-J     Horisont - 1-10 ********/}
+		   <div className="gameboard">
+				<div id='mySide'>
+					<div  id='myShipsCount' className='scoreboard'>
+						<h2 className={myTurn ? 'playersTurn' : ''}>You</h2> 
+						Amount of ships I have left: {shipsLeft}
+					</div>
 
-				<div className='scoreboard'>
-					<h2 className={myTurn ? 'playersTurn' : ''}>You</h2> 
-					Amount of ships I have left: {shipsLeft}
+					<MyBattleboard />
+
 				</div>
 			</div>
 			{/********* / Gameboard ********/}
@@ -162,20 +163,16 @@ const GameboardPage = ({ socket }) => {
 
 			{/********* opponent's board ********/}
 			<div id='opponentSide'>
-				<div className="opponentGameboardWrapper">
-
+				<div className='scoreboard'>
+					<h2 className={myTurn ? '' : 'playersTurn'}>Your opponent</h2> 
+					Amount of ships opponent have left: {opponentAmountOfShips}
+				</div>
+				
 					<OpponentBattleboard 
 						onClick={handleClickedOnBox}
 						myTurn={myTurn}
 					/>
 
-                </div>
-
-				<div className='scoreboard'>
-					<h2 className={myTurn ? '' : 'playersTurn'}>Your opponent</h2> 
-					Amount of ships opponent have left: {opponentAmountOfShips}
-				</div>
-                <div className="gameboard-wrapper"></div>
             </div>
             {/********* / opponent's board ********/}
         </>
