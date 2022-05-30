@@ -1,14 +1,24 @@
 
 export const resetShips = () => {
 
-    const ship = document.querySelectorAll('.ship')
-    const hit = document.querySelectorAll('.hit')
-    const miss = document.querySelectorAll('.miss')
-    const disabled = document.querySelectorAll('.disabledBox')
+    document.querySelectorAll('div.ship').forEach(div => {
+        div.classList.add('box')
+        div.classList.remove('ship')
+    })
 
-    ship.classList.add('.box').remove('.ship', '.hit', '.miss', '.disabledBox')
-    hit.classList.add('.box').remove('.ship', '.hit', '.miss', '.disabledBox')
-    miss.classList.add('.box').remove('.ship', '.hit', '.miss', '.disabledBox')
-    disabled.classList.add('.box').remove('.ship', '.hit', '.miss', '.disabledBox')
+    document.querySelectorAll('div.hit').forEach(div => {
+        div.classList.add('box')
+        div.classList.remove('hit')
+    })
+
+    document.querySelectorAll('div.miss').forEach(div => {
+        div.classList.add('box')
+        div.classList.remove('miss')
+    })
+
+    document.querySelectorAll('div.disabledBox').forEach(div => {
+        div.classList.add('box')
+        div.classList.remove('disabledBox')
+    })
     
 }

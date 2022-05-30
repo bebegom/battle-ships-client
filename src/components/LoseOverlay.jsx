@@ -1,7 +1,11 @@
 import React from 'react'
-
+import useSound from 'use-sound'
+import click from '../assets/audio/click.wav'
 
 export default function LoseOverlay({ playAgain }) {
+
+	const [playClickSound] = useSound(click, { volume: 0.2 })
+
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -17,7 +21,11 @@ export default function LoseOverlay({ playAgain }) {
 					<h2>Sorry, Marine!</h2>
 					<p>Better hit the training grounds...</p>
 					<form onSubmit={handleSubmit}>
-						<button type="submit">Play again</button>
+						<button 
+							className="button" 
+							type="submit"
+							onClick={()=> playClickSound()}
+						>Play again</button>
 					</form>
 				</div>
 			</div>

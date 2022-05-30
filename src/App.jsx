@@ -1,10 +1,11 @@
 // React & Socket
 import { useState } from 'react'
 import socketio from 'socket.io-client'
+import useSound from 'use-sound'
+import battletheme from './assets/audio/battletheme.mp3'
 
 // Components & pages
 import GameboardPage from './pages/GameboardPage';
-// import {resetShips} from './components/randomizeShips';
 import Startoverlay from './components/Startoverlay';
 import WinOverlay from './components/WinOverlay';
 import LoseOverlay from './components/LoseOverlay';
@@ -18,19 +19,25 @@ function App() {
 	const [startOverlay, setStartOverlay] = useState(true)
 	const [winOverlay, setWinOverlay] = useState(false)
 	const [loseOverlay, setLoseOverlay] = useState(false)
-	
+
+	const [playBattleTheme, { stop }] = useSound(battletheme, { volume: 0.25 })
+
+
 	socket.on('game:start', (userId, opponent) => {
 		setStartOverlay(false)
+		playBattleTheme();
 	})
-
+	
 	socket.on('you:lost', () => {
 		setLoseOverlay(true)
+		stop()
 	})
 
 	socket.on('opponent:have:no:ships:left', () => {
 		setWinOverlay(true)
-		console.log('you win! ', winOverlay)
+		stop()
 	})
+
 
 	function handlePlayAgain() {
 		setWinOverlay(false)

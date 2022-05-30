@@ -1,7 +1,12 @@
 import React from 'react'
+import useSound from 'use-sound'
+import click from '../assets/audio/click.wav'
 
 
 export default function WinOverlay({ playAgain }) {
+
+	const [playClickSound] = useSound(click, { volume: 0.2 })
+
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -18,7 +23,11 @@ export default function WinOverlay({ playAgain }) {
 					<h2>Congratulations, Marine!</h2>
 					<p>You are the winner</p>
 					<form onSubmit={handleSubmit}>
-						<button type="submit">Play again</button>
+						<button 
+							className="button" 
+							type="submit"
+							onClick={()=> playClickSound()}
+						>Play again</button>
 					</form>
 				</div>
 			</div>

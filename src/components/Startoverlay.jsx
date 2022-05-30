@@ -1,9 +1,13 @@
 import { useState } from 'react'
+import useSound from 'use-sound'
+import click from '../assets/audio/click.wav'
 
 
 export default function Startoverlay({ socket }) {
 	const [button, setButton] = useState(true)
 	const [loading, setLoading] = useState(false)
+
+	const [playClickSound] = useSound(click, { volume: 0.2 })
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -20,12 +24,16 @@ export default function Startoverlay({ socket }) {
 			<div className="bg-fade">
 
 				<div className="card">
-					<h2>Welcome to Battleships, Marine!</h2>
+					<h2>Welcome, Marine!</h2>
 					<p>Get ready for battle</p>
 
 					{button && 
 						<form onSubmit={handleSubmit}>
-							<button type="submit">Join game</button>
+							<button 
+								className="button" 
+								type="submit"
+								onClick={()=> playClickSound()}
+							>Join game</button>
 						</form>
 					}
 					{loading &&

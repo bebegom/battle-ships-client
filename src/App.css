@@ -88,7 +88,11 @@ h1 {
 }
 
 .disabledBox {
-	font-family: "Comic Sans MS", "Comic Sans", cursive;
+	border: 1px rgba(0, 0, 0, 0.488) solid;
+	padding: 10px;
+	text-align: center;
+	color: #42424295;
+	font-size: 0.7rem;
 }
 
 .scoreboard {
@@ -138,18 +142,31 @@ h1 {
 }
 
 .card {
-	background-color: beige;
+	background-color: rgba(228, 229, 229, 0.9);
 	position: fixed;
-	left: 50%;
-	top: 50%;
+	left: 40vw;
+	top: 30vh;
+
+	width: 20vw;
+	height: 20vh;
 
 	padding: 2rem;
 
-	border-radius: 2em;
+	/* border-radius: 2em; */
 
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+.button {
+	background-color: rgb(236, 234, 233, 0.855);
+	font-family: 'Orbitron', sans-serif;
+	padding: 0.5em;
+}
+
+.button:hover {
+	background-color: rgba(177, 177, 177, 0.855);
 }
 
 @media screen and (min-width: 950px) {

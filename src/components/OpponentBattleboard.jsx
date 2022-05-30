@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 
 export default function Battleboard({ onClick, myTurn }) {
 
@@ -20,6 +21,9 @@ export default function Battleboard({ onClick, myTurn }) {
 		return id
 	}
 
+	useEffect(() => {
+		console.log('re-render OP')
+	})
 
 
 	return (
