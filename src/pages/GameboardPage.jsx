@@ -17,6 +17,7 @@ const GameboardPage = ({ socket }) => {
 		if (!e.target.classList.contains('disabledBox')) {
 			e.target.classList.add('disabledBox')
 			e.target.classList.remove('box')
+			e.target.innerText = ''
 
 			// emit till servern och fråga om det är en träff
 			const id = e.target.id;
