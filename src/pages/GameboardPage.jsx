@@ -186,6 +186,10 @@ const GameboardPage = ({ socket }) => {
 
 	}, [socket])
 
+
+
+
+	
 	useEffect(() => {
 				// listen to hit check respons
 				socket.on("response:hitormiss", (socketId, boxId, hit) => {
