@@ -25,21 +25,24 @@ body {
 
 h1 { 
 	background-color: #0e0e0ee5;
+	
 	color: #eee;
-	padding: 15px;
 	text-align: center;
+
+	padding: 15px;
 	margin: 0;
 }
 
 .gameboard {
-	margin: auto;
 	background-color: #8c8c8c8c;
+	
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+
+	margin: auto;
 	padding: 50px;
 	width: 85vw;
-	/* height: 100%; */
 }
 
 .row {
@@ -51,6 +54,7 @@ h1 {
 .box {
 	border: 1px rgba(0, 0, 0, 0.488) solid;
 	padding: 10px;
+
 	text-align: center;
 	color: #42424295;
 	font-size: 0.7rem;
@@ -62,16 +66,20 @@ h1 {
 }
 
 #mySide .hit {
-	/* background-color: green; */
 	background-image: url('./assets/images/boom.png');
 	background-size: cover;
+
+	text-align: center;
+	color: #42424295;
+	font-size: 0.7rem;
 }
 
 #mySide .miss {
-	/* background-color: red; */
-	/* background-color: rgba(117, 117, 117, 0); */
 	background-image: url('./assets/images/space.png');
 	background-size: cover;
+	text-align: center;
+	color: #42424295;
+	font-size: 0.7rem;
 }
 
 #opponentSide {
@@ -90,39 +98,54 @@ h1 {
 .disabledBox {
 	border: 1px rgba(0, 0, 0, 0.488) solid;
 	padding: 10px;
+
 	text-align: center;
-	color: #42424295;
+	color: #42424270;
 	font-size: 0.7rem;
 }
 
 .scoreboard {
 	background-color: rgba(228, 229, 229, 0.601);
-	padding: 3%;
 	height: 120px;
-	text-align: center;
+	padding: 3%;
 	margin-bottom: 10px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.scoreboard h2 {
+	width: 290px;
+	height: 40px;
+
+	text-align: center;
+
+	padding-top: 5px;
 }
 
 /* give who ever's turn it is this className */
 .playersTurn {
 	background-color: rgb(178, 187, 193);
-	border: #979a9c solid 2px;
+
+	outline: #979a9c solid 2px;
 	border-radius: 30px;
-	padding: 10px;
 }
 
 .ship {
 	background-color: rgba(236, 234, 233, 0.553);
+
+	text-align: center;
+	color: #42424295;
+	font-size: 0.7rem;
 }
 
 .hit {
-	/* background-color: green; */
 	background-image: url('./assets/images/boom.png');
 	background-size: cover;
 }
 
 .miss {
-	/* background-color: red; */
 	background-image: url('./assets/images/space.png');
 	background-size: cover;
 }
@@ -151,8 +174,6 @@ h1 {
 	height: 20vh;
 
 	padding: 2rem;
-
-	/* border-radius: 2em; */
 
 	display: flex;
 	flex-direction: column;

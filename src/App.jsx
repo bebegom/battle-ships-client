@@ -14,7 +14,8 @@ import LoseOverlay from './components/LoseOverlay';
 import './App.css';
 
 // TODO: ändra till heroku-app-länken
-const socket = socketio.connect(process.env.REACT_APP_SOCKET_URL)
+// const socket = socketio.connect(process.env.REACT_APP_SOCKET_URL)
+const socket = socketio.connect('http://localhost:4000')
 
 function App() {
 	const [startOverlay, setStartOverlay] = useState(true)
