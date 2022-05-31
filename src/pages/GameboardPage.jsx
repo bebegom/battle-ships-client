@@ -184,6 +184,14 @@ const GameboardPage = ({ socket }) => {
 			resetShips()
 		})
 
+		socket.on("reset:opponent:left:game", () => {
+			setOpponentAmountOfShips(4)
+			setShipsLeft(4)
+			resetShips()
+			// alert("your enemy fled in terror")
+			socket.emit("opponent:left", socket.id)
+		})
+
 	}, [socket])
 
 	useEffect(() => {

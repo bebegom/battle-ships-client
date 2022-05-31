@@ -39,6 +39,10 @@ function App() {
 		stop()
 	})
 
+	socket.on("reload", () => {
+		setWinOverlay(true)
+	})
+
 
 	function handlePlayAgain() {
 		setWinOverlay(false)
