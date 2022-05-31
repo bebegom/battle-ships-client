@@ -24,7 +24,6 @@ function App() {
 
 	const [playBattleTheme, { stop }] = useSound(battletheme, { volume: 0.25 })
 
-
 	socket.on('game:start', (userId, opponent) => {
 		setStartOverlay(false)
 		playBattleTheme();

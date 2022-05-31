@@ -167,11 +167,12 @@ h1 {
 .card {
 	background-color: rgba(228, 229, 229, 0.9);
 	position: fixed;
-	left: 40vw;
-	top: 30vh;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 
-	width: 20vw;
-	height: 20vh;
+	width: 370px;
+	height: 170px;
 
 	padding: 2rem;
 
