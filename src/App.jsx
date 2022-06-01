@@ -30,7 +30,7 @@ function App() {
 
 	socket.on('game:start', (userId, opponent) => {
 		setStartOverlay(false)
-		playBattleTheme();
+		playBattleTheme()
 	})
 	
 	socket.on('you:lost', () => {
@@ -52,7 +52,6 @@ function App() {
 		setOccupiedOverlay(true)
 		stop()
 	})
-
 
 	function handlePlayAgain() {
 		setWinOverlay(false)
@@ -83,8 +82,6 @@ function App() {
 				<OccupiedOverlay socket={socket}/> 
 			}
 
-
-			
 			<GameboardPage socket={socket}/>
 			
 		</div>

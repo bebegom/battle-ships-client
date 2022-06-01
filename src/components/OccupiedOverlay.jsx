@@ -1,8 +1,5 @@
 
-
 export default function OccupiedOverlay() {
-
-
 	return (
 		<div id="container">
 			<div className="bg-fade">

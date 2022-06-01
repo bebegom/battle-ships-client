@@ -1,5 +1,8 @@
+// React
 import { useState } from 'react'
 import useSound from 'use-sound'
+
+// Assets
 import click from '../assets/audio/click.wav'
 
 
@@ -22,11 +25,9 @@ export default function Startoverlay({ socket }) {
 	return (
 		<div id="container">
 			<div className="bg-fade">
-
 				<div className="card">
 					<h2>Welcome, Marine!</h2>
 					<p>Get ready for battle</p>
-
 					{button && 
 						<form onSubmit={handleSubmit}>
 							<button 

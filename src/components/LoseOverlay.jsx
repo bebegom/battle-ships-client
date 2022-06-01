@@ -1,11 +1,12 @@
+// React
 import React from 'react'
 import useSound from 'use-sound'
+
+// Assets
 import click from '../assets/audio/click.wav'
 
 export default function LoseOverlay({ playAgain }) {
-
 	const [playClickSound] = useSound(click, { volume: 0.2 })
-
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
