@@ -1,9 +1,9 @@
 import { useEffect } from "react"
+import { uniqueId } from "../helpers/uniqueId"
 
-export default function Battleboard({ onClick, myTurn }) {
-
-
-	const opponentBattleBoard = [
+export default function OpponentBattleboard({ onClick, myTurn }) {
+	
+	const boardArray = [
 		['oa1', 'oa2', 'oa3', 'oa4', 'oa5', 'oa6', 'oa7', 'oa8', 'oa9', 'oa10' ],
 		['ob1', 'ob2', 'ob3', 'ob4', 'ob5', 'ob6', 'ob7', 'ob8', 'ob9', 'ob10' ],
 		['oc1', 'oc2', 'oc3', 'oc4', 'oc5', 'oc6', 'oc7', 'oc8', 'oc9', 'oc10' ],
@@ -16,37 +16,32 @@ export default function Battleboard({ onClick, myTurn }) {
 		['oj1', 'oj2', 'oj3', 'oj4', 'oj5', 'oj6', 'oj7', 'oj8', 'oj9', 'oj10' ]
 	]
 
-	function uniqueId() {
-		const id = "id" + Math.random().toString(16).slice(2)
-		return id
-	}
-
 	useEffect(() => {
-		console.log('re-render OP')
+		console.log("Re-render")
 	})
 
+	const opponentBattleboard = 
+		[
+			boardArray.map( row =>
+				<div className='row' key={uniqueId()}>
+					{row.map( id => {
+						return(
+							<div 
+								onClick={e => {
+									if (myTurn) {onClick(e)}
+								}} 
+								id={id}
+								className="box"
+								key={id}
+							>{id.substring(1)}</div>
+						)
+					})}
+				</div>
+			)
+		]
 
-	return (
-
-		<>
-			{
-				opponentBattleBoard.map( row =>
-					<div className='row' key={uniqueId()}>
-						{row.map( id => {
-							return(
-								<div 
-									onClick={e => {
-										if (myTurn) {onClick(e)}
-									}} 
-									id={id}
-									className="box"
-									key={id}
-								>{id.substring(1)}</div>
-							)
-						})}
-					</div>
-				)
-			}
-		</>
-		)
+		return opponentBattleboard
 	}
+
+
+

@@ -1,9 +1,8 @@
-// import { myTurn, myAmountOfShips, opponentAmountOfShips } from '../pages/GameboardPage'
+import { uniqueId } from "../helpers/uniqueId"
+import { useEffect } from 'react'
 
-export default function Battleboard() {
-
-
-    const myBattleBoard = [
+export default function MyBattleboard() {
+    const boardArray = [
         ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'a10' ],
         ['b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8', 'b9', 'b10' ],
         ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10' ],
@@ -16,32 +15,48 @@ export default function Battleboard() {
         ['j1', 'j2', 'j3', 'j4', 'j5', 'j6', 'j7', 'j8', 'j9', 'j10' ]
     ]
 
-    function uniqueId() {
-		const id = "id" + Math.random().toString(16).slice(2)
-		return id
-	}
+    useEffect(() => {
+		console.log("Re-render")
+	})
 
+    const myBattleBoard = 
+        [
+            boardArray.map( row =>
+                <div className='row' key={uniqueId()}>
+                    {row.map( id => {
+                        return(
+                            <div 
+                                id={id} 
+                                className="box"
+                                key={id} 
+                            >{id}</div>
+                        )
+                    })}
+            </div>
+            )
+        ]
     
 
 
-	return (
-
-        <>
-            {
-                myBattleBoard.map( row =>
-                    <div className='row' key={uniqueId()}>
-                        {row.map( id => {
-                            return(
-                                <div 
-                                    id={id} 
-                                    className="box"
-                                    key={id} 
-                                >{id}</div>
-                            )
-                        })}
-                    </div>
-                )
-            }
-        </>
-    )
+	return myBattleBoard;
+        // (
+        // <>
+        //     {
+        //         myBattleBoard.map( row =>
+        //             <div className='row' key={uniqueId()}>
+        //                 {row.map( id => {
+        //                     return(
+        //                         <div 
+        //                             id={id} 
+        //                             className="box"
+        //                             key={id} 
+        //                         >{id}</div>
+        //                     )
+        //                 })}
+        //             </div>
+        //         )
+        //     }
+        // </>
+        // )
 }
+
