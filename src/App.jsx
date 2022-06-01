@@ -14,7 +14,8 @@ import LoseOverlay from './components/LoseOverlay';
 import './App.css';
 
 // TODO: ändra till heroku-app-länken
-const socket = socketio.connect(process.env.REACT_APP_SOCKET_URL)
+// const socket = socketio.connect(process.env.REACT_APP_SOCKET_URL)
+const socket = socketio.connect('http://localhost:4000')
 
 function App() {
 	const [startOverlay, setStartOverlay] = useState(true)
@@ -22,7 +23,6 @@ function App() {
 	const [loseOverlay, setLoseOverlay] = useState(false)
 
 	const [playBattleTheme, { stop }] = useSound(battletheme, { volume: 0.25 })
-
 
 	socket.on('game:start', (userId, opponent) => {
 		setStartOverlay(false)
@@ -37,6 +37,10 @@ function App() {
 	socket.on('opponent:have:no:ships:left', () => {
 		setWinOverlay(true)
 		stop()
+	})
+
+	socket.on("reload", () => {
+		setWinOverlay(true)
 	})
 
 

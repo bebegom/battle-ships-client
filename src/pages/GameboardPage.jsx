@@ -61,7 +61,7 @@ const GameboardPage = ({ socket }) => {
 		if (!e.target.classList.contains('disabledBox')) {
 			e.target.classList.add('disabledBox')
 			e.target.classList.remove('box')
-			e.target.innerText = ''
+			// e.target.innerText = ''
 
 			// emit till servern och fråga om det är en träff
 			const id = e.target.id;
@@ -164,6 +164,14 @@ const GameboardPage = ({ socket }) => {
 			setOpponentAmountOfShips(4)
 			setShipsLeft(4)
 			resetShips()
+		})
+
+		socket.on("reset:opponent:left:game", () => {
+			setOpponentAmountOfShips(4)
+			setShipsLeft(4)
+			resetShips()
+			// alert("your enemy fled in terror")
+			socket.emit("opponent:left", socket.id)
 		})
 
 	}, [socket])
